@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Infinity | Taniya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Monsieur+La+Doulaise&family=Montserrat:wght@100;300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --rose: #e5b3a3;
-            --crimson: #4a0404;
             --midnight: #050103;
-            --glass: rgba(255, 255, 255, 0.02);
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -26,87 +25,85 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 2000px;
+            perspective: 2500px;
             touch-action: none;
         }
 
-        /* --- ROMANTIC PARTICLE CANVAS --- */
-        #particle-canvas {
+        /* --- ROMANTIC LAYERED BACKGROUND --- */
+        #canvas-layer {
             position: fixed;
             inset: 0;
             z-index: -1;
-            pointer-events: none;
             background: radial-gradient(circle at center, #1a080e 0%, #050103 100%);
         }
 
-        /* --- THE 3D GLASS SANCTUARY --- */
-        .prism-card {
+        /* --- THE BALANCED MONOLITH --- */
+        .sanctuary {
             position: absolute;
-            width: 92vw;
-            max-width: 450px;
+            width: 90vw;
+            max-width: 420px;
             aspect-ratio: 9/16;
             background: var(--glass);
-            backdrop-filter: blur(45px) saturate(220%);
-            -webkit-backdrop-filter: blur(45px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            /* Animated Border */
+            border: 1px solid transparent;
+            border-image: linear-gradient(to bottom, var(--rose), transparent) 1;
             border-radius: 60px;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            padding: 45px;
             text-align: center;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            box-shadow: 0 40px 120px rgba(0,0,0,0.8);
             transform-style: preserve-3d;
-            transition: transform 0.15s ease-out; 
+            transition: transform 0.15s ease-out;
         }
 
-        .prism-card.active { display: flex; animation: soulReveal 2.5s ease-out forwards; }
+        .sanctuary.active { display: flex; animation: gateOpen 2.5s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
 
-        @keyframes soulReveal {
-            from { opacity: 0; transform: scale(0.9) translateZ(-600px); filter: blur(20px); }
-            to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
+        @keyframes gateOpen {
+            from { opacity: 0; transform: scale(0.8) translateZ(-800px); }
+            to { opacity: 1; transform: scale(1) translateZ(0); }
         }
 
-        /* 3D Depth Layers */
-        .layer-mid { transform: translateZ(50px); }
-        .layer-high { transform: translateZ(110px); }
-
+        /* --- BALANCED TYPOGRAPHY --- */
         h1 {
-            font-family: 'Monsieur La Doulaise', cursive;
-            font-size: clamp(4rem, 18vw, 6.5rem);
+            font-family: 'Italianno', cursive;
+            font-size: clamp(3.5rem, 15vw, 5rem);
             color: var(--rose);
             margin-bottom: 5px;
-            filter: drop-shadow(0 0 15px rgba(229, 179, 163, 0.4));
+            font-weight: 400;
         }
 
-        .romantic-script {
+        .sub-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .romantic-quote {
             font-family: 'Italianno', cursive;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--rose);
+            line-height: 1.2;
             opacity: 0.9;
         }
 
-        .label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.6rem;
-            color: rgba(255,255,255,0.4);
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-        }
-
-        /* --- THE CINEMATIC PORTAL --- */
-        .portal {
+        /* --- CINEMATIC WINDOW --- */
+        .window {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 45px;
+            border-radius: 40px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
             margin: 20px 0;
             position: relative;
-            transform: translateZ(70px);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+            transform: translateZ(60px);
         }
 
         .slide {
@@ -116,62 +113,60 @@
             transition: opacity 2s ease;
         }
 
-        .slide.active { opacity: 1; animation: deepBreathe 15s infinite alternate ease-in-out; }
+        .slide.active { opacity: 1; animation: breatheIn 12s infinite alternate; }
 
-        @keyframes deepBreathe {
+        @keyframes breatheIn {
             from { transform: scale(1); }
-            to { transform: scale(1.15) rotate(1deg); }
+            to { transform: scale(1.15) rotate(1.5deg); }
         }
 
-        /* --- SOFT INTERACTION BUTTON --- */
-        .btn-touch {
+        /* --- REFINED BUTTON --- */
+        .btn-love {
             background: rgba(255, 255, 255, 0.03);
             border: 0.5px solid var(--rose);
             padding: 16px 45px;
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 4px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             border-radius: 100px;
-            margin-top: 25px;
+            margin-top: 30px;
             cursor: pointer;
-            transition: 0.5s;
-            transform: translateZ(60px);
+            transition: 0.6s;
+            transform: translateZ(80px);
         }
 
-        .btn-touch:hover {
+        .btn-love:hover {
             background: var(--rose);
-            box-shadow: 0 0 50px var(--rose);
-            transform: translateZ(90px) scale(1.05);
+            box-shadow: 0 0 40px var(--rose);
+            transform: translateZ(100px) scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="canvas-layer"></canvas>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="intro" class="prism-card active">
-        <div class="label layer-mid">The Awakening</div>
-        <h1 class="layer-high">Taniya</h1>
-        <p class="romantic-script layer-mid">My Soul’s Reflection</p>
-        <p style="font-weight: 100; letter-spacing: 1px; opacity: 0.7; margin-top: 10px;">In a world of shadows, you are my only light.</p>
-        <button class="btn-touch" onclick="navigate('journey')">Trace My Heart</button>
+    <div id="intro" class="sanctuary active">
+        <div class="sub-text">A Soul Recognized</div>
+        <h1>Taniya</h1>
+        <p class="romantic-quote">My Heart's Quiet Melody</p>
+        <button class="btn-love" onclick="seek('journey')">Open Story</button>
     </div>
 
-    <div id="journey" class="prism-card">
-        <div class="label layer-mid">Destiny’s Ink</div>
-        <h1 class="layer-high" style="font-size: 4rem;">Written in Stars</h1>
-        <p class="romantic-script">14 September • The Vow</p>
-        <p class="romantic-script">13 October • The Reunion</p>
-        <button class="btn-touch" onclick="navigate('gallery')">Archives of Us</button>
+    <div id="journey" class="sanctuary">
+        <div class="sub-text">Moments In Time</div>
+        <p class="romantic-quote">14 September • The Vow</p>
+        <p class="romantic-quote">13 October • The Reunion</p>
+        <button class="btn-love" onclick="seek('gallery')">Archives</button>
     </div>
 
-    <div id="gallery" class="prism-card">
-        <div class="portal">
+    <div id="gallery" class="sanctuary">
+        <div class="window">
             <img class="slide active" src="photo1.jpg">
             <img class="slide" src="photo2.jpg">
             <img class="slide" src="photo3.jpg">
@@ -179,130 +174,80 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-touch" onclick="navigate('proposal')">The Final Secret</button>
+        <button class="btn-love" onclick="seek('proposal')">Ascend</button>
     </div>
 
-    <div id="proposal" class="prism-card">
-        <div class="label layer-mid">My Forever Prayer</div>
-        <h1 class="layer-high" style="font-size: 4.5rem;">Be My Wife?</h1>
+    <div id="proposal" class="sanctuary">
+        <div class="sub-text">Our Destiny</div>
+        <h1>Be Mine?</h1>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-            <button class="btn-touch" id="yesBtn">Yes, Until Eternity Ends</button>
-            <button class="btn-touch" id="noBtn" style="opacity: 0.05; border-color: #444;">No</button>
+            <button class="btn-love" id="yesBtn">Always Yours</button>
+            <button class="btn-love" id="noBtn" style="opacity: 0.1; border-color: #333;">No</button>
         </div>
     </div>
 
-    <div id="final" class="prism-card">
-        <h1 class="layer-high">Infinity.</h1>
-        <p id="typewriter" class="layer-mid" style="font-family: 'Italianno', cursive; font-size: 2.2rem; line-height: 1.4;"></p>
-        <div class="label layer-mid" style="margin-top: 30px;">Lost in you, Forever.</div>
+    <div id="final" class="sanctuary">
+        <h1>Infinity.</h1>
+        <p id="typewriter" class="romantic-quote" style="font-size: 1.6rem;"></p>
+        <div class="sub-text" style="margin-top: 30px;">Forever Bound</div>
     </div>
 
     <script>
-        // --- ROMANTIC PARTICLE ENGINE (PETALS & HEARTS) ---
-        const canvas = document.getElementById('particle-canvas');
+        const canvas = document.getElementById('canvas-layer');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-        const mouse = { x: null, y: null };
+        let elements = [];
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 15 + 5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 1 + 0.5; // Falling downward
-                this.rotation = Math.random() * 360;
-                this.type = Math.random() > 0.5 ? 'petal' : 'heart';
-            }
-            update() {
-                this.y += this.speedY;
-                this.rotation += 0.5;
-                if (this.y > canvas.height) {
-                    this.y = -20;
-                    this.x = Math.random() * canvas.width;
-                }
-                // Subtle wind effect from touch
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance < 120) {
-                    this.x -= dx/30;
-                }
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation * Math.PI / 180);
-                ctx.fillStyle = 'rgba(229, 179, 163, 0.3)';
-                if (this.type === 'heart') {
-                    ctx.font = `${this.size}px serif`;
-                    ctx.fillText('❤', 0, 0);
-                } else {
-                    // Draw a soft petal shape
-                    ctx.beginPath();
-                    ctx.ellipse(0, 0, this.size/2, this.size, 0, 0, 2 * Math.PI);
-                    ctx.fill();
-                }
-                ctx.restore();
-            }
-        }
-
-        function initParticles() {
+        function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
-            for (let i = 0; i < 60; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+            elements = [];
+            for(let i=0; i<80; i++) elements.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                vx: Math.random() * 0.5 - 0.25,
+                vy: Math.random() * 0.5 - 0.25,
+                opacity: Math.random()
             });
-            requestAnimationFrame(animateParticles);
         }
+        init(); window.onresize = init;
 
-        initParticles();
-        animateParticles();
+        function animate() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            elements.forEach(e => {
+                e.x += e.vx; e.y += e.vy;
+                if(e.x < 0) e.x = canvas.width; if(e.x > canvas.width) e.x = 0;
+                if(e.y < 0) e.y = canvas.height; if(e.y > canvas.height) e.y = 0;
+                ctx.fillStyle = `rgba(229, 179, 163, ${e.opacity})`;
+                ctx.beginPath();
+                ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+                ctx.fill();
+                // Glowing "firefly" effect
+                ctx.shadowBlur = 10; ctx.shadowColor = 'var(--rose)';
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
 
-        // --- NAVIGATION & INTERACTION ---
-        function navigate(id) {
-            document.querySelectorAll('.prism-card').forEach(c => c.classList.remove('active'));
+        function seek(id) {
+            document.querySelectorAll('.sanctuary').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             if(id === 'journey') document.getElementById('music').play().catch(()=>{});
-            if(id === 'proposal') startHeartbeat();
+            if(id === 'proposal') { if ("vibrate" in navigator) navigator.vibrate([100, 50, 100]); }
             if(id === 'final') type();
         }
 
-        const handleInteraction = (e) => {
-            const card = document.querySelector('.prism-card.active');
-            const cx = e.touches ? e.touches[0].clientX : e.clientX;
-            const cy = e.touches ? e.touches[0].clientY : e.clientY;
-            mouse.x = cx; mouse.y = cy;
+        window.addEventListener('mousemove', (e) => {
+            const card = document.querySelector('.sanctuary.active');
             if(card) {
-                let x = (window.innerWidth / 2 - cx) / 80;
-                let y = (window.innerHeight / 2 - cy) / 80;
+                let x = (window.innerWidth / 2 - e.clientX) / 80;
+                let y = (window.innerHeight / 2 - e.clientY) / 80;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
-        };
-        window.addEventListener('mousemove', handleInteraction);
-        window.addEventListener('touchmove', handleInteraction);
-
-        function startHeartbeat() {
-            if ("vibrate" in navigator) {
-                const beat = setInterval(() => {
-                    if(document.getElementById('proposal').classList.contains('active')) {
-                        navigator.vibrate([120, 60, 120]);
-                    } else { clearInterval(beat); }
-                }, 1500);
-            }
-        }
+        });
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream my heart finally reached. My soul is forever bound to yours, and every heartbeat is a whisper of my devotion. I am yours, entirely.";
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, I am yours entirely. I love you, forever.";
             let i = 0; const el = document.getElementById('typewriter');
             const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
@@ -314,7 +259,7 @@
             no.style.top = Math.random() * 80 + 'vh';
         };
 
-        document.getElementById('yesBtn').onclick = () => navigate('final');
+        document.getElementById('yesBtn').onclick = () => seek('final');
 
         let cur = 0; const slides = document.querySelectorAll('.slide');
         setInterval(() => {
