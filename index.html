@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soul Prism | Taniya</title>
+    <title>Infinity | Taniya</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --rose-gold: #e5b3a3;
-            --midnight: #080205;
+            --rose: #e5b3a3;
+            --midnight: #050103;
             --glass: rgba(255, 255, 255, 0.02);
         }
 
@@ -25,163 +25,164 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1500px;
+            perspective: 2000px;
             touch-action: none;
         }
 
         /* --- AMBIENT PHOTO LIGHTING --- */
         #dynamic-bg {
             position: fixed;
-            inset: -10%;
+            inset: -15%;
             z-index: -2;
             background-size: cover;
             background-position: center;
-            filter: blur(60px) brightness(0.2);
+            filter: blur(80px) brightness(0.2);
             transition: background-image 2.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* --- FLOATING 3D MEMORIES --- */
         .photo-float {
             position: fixed;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 20px;
             background-size: cover;
             background-position: center;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             pointer-events: none;
             z-index: -1;
             opacity: 0.3;
-            animation: drift 18s linear infinite;
+            animation: drift 20s linear infinite;
         }
 
         @keyframes drift {
-            from { transform: translateY(110vh) rotate(0deg) translateZ(-200px); }
+            from { transform: translateY(110vh) rotate(0deg) translateZ(-300px); }
             to { transform: translateY(-20vh) rotate(360deg) translateZ(100px); }
         }
 
-        /* --- THE GLASS MONOLITH --- */
+        /* --- THE 3D GLASS MONOLITH --- */
         .prism-card {
             position: absolute;
-            width: 90vw;
-            max-width: 440px;
+            width: 92vw;
+            max-width: 450px;
             aspect-ratio: 9/16;
             background: var(--glass);
-            backdrop-filter: blur(35px) saturate(180%);
-            -webkit-backdrop-filter: blur(35px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 60px;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
             transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.1, 0.8, 0.2, 1);
+            transition: transform 0.15s ease-out; /* Liquid Response */
         }
 
-        .prism-card.active { display: flex; animation: reveal 2s ease-out forwards; }
+        .prism-card.active { display: flex; animation: soulReveal 2.5s ease-out forwards; }
 
-        @keyframes reveal {
-            from { opacity: 0; transform: scale(0.9) translateZ(-500px); }
-            to { opacity: 1; transform: scale(1) translateZ(0); }
+        @keyframes soulReveal {
+            from { opacity: 0; transform: scale(0.9) translateZ(-600px); filter: blur(20px); }
+            to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
         }
 
-        /* 3D Depth Layers */
-        .layer-mid { transform: translateZ(40px); }
-        .layer-high { transform: translateZ(90px); filter: drop-shadow(0 0 15px var(--rose-gold)); }
+        /* Physical 3D Depth Layers */
+        .layer-mid { transform: translateZ(50px); transition: 0.3s ease; }
+        .layer-high { transform: translateZ(110px); text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 15vw, 5.2rem);
-            color: var(--rose-gold);
-            margin-bottom: 10px;
+            font-size: clamp(3.5rem, 15vw, 5.5rem);
+            color: var(--rose);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px rgba(229, 179, 163, 0.4));
         }
 
         .label {
             font-family: 'Cinzel', serif;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: rgba(255,255,255,0.4);
-            letter-spacing: 6px;
+            letter-spacing: 7px;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        /* --- CINEMATIC PHOTO PORTAL --- */
+        /* --- THE CINEMATIC PHOTO PORTAL --- */
         .portal {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 35px;
+            border-radius: 45px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.2);
             margin: 20px 0;
             position: relative;
-            transform: translateZ(60px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            transform: translateZ(70px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
         }
 
         .slide {
             position: absolute;
             inset: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0;
-            transition: opacity 2s ease-in-out;
-            filter: contrast(1.1) brightness(0.9);
+            transition: opacity 2s ease;
+            filter: brightness(0.85) contrast(1.1);
         }
 
         .slide.active { opacity: 1; animation: deepBreathe 15s infinite alternate ease-in-out; }
 
         @keyframes deepBreathe {
             from { transform: scale(1); }
-            to { transform: scale(1.15) rotate(1.5deg); }
+            to { transform: scale(1.2) rotate(2deg); }
         }
 
-        /* --- ACTION TOUCH --- */
-        .btn-interact {
-            background: rgba(255,255,255,0.03);
-            border: 0.5px solid var(--rose-gold);
-            padding: 18px 45px;
+        /* --- SEDUCTIVE ACTION BUTTONS --- */
+        .btn-touch {
+            background: rgba(255, 255, 255, 0.05);
+            border: 0.5px solid var(--rose);
+            padding: 20px 50px;
             color: #fff;
             font-family: 'Cinzel', serif;
-            letter-spacing: 4px;
-            font-size: 0.75rem;
+            letter-spacing: 5px;
+            font-size: 0.8rem;
             border-radius: 100px;
-            margin-top: 25px;
+            margin-top: 30px;
             cursor: pointer;
             transition: 0.5s;
-            transform: translateZ(50px);
+            transform: translateZ(60px);
         }
 
-        .btn-interact:hover {
-            background: var(--rose-gold);
-            box-shadow: 0 0 40px var(--rose-gold);
-            transform: translateZ(80px) scale(1.05);
+        .btn-touch:hover {
+            background: var(--rose);
+            box-shadow: 0 0 60px var(--rose);
+            transform: translateZ(90px) scale(1.08);
         }
     </style>
 </head>
 <body>
 
     <div id="dynamic-bg"></div>
-    <div id="thumb-container"></div>
+    <div id="float-container"></div>
 
-    <audio id="bg-audio" loop>
+    <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
     <div id="intro" class="prism-card active">
         <div class="label layer-mid">A Soul Recognized</div>
         <h1 class="layer-high">Taniya</h1>
-        <p class="layer-mid" style="font-weight: 100; opacity: 0.7;">From the moment our paths crossed... to the forever of us.</p>
-        <button class="btn-interact" onclick="navigate('journey')">Our Story</button>
+        <p class="layer-mid" style="font-weight: 100; letter-spacing: 2px; opacity: 0.7;">From the moment our paths crossed... to the forever of us.</p>
+        <button class="btn-touch" onclick="navigate('journey')">Our Secrets</button>
     </div>
 
     <div id="journey" class="prism-card">
-        <div class="label layer-mid">Moments in Eternity</div>
-        <h1 class="layer-high">Our Vows</h1>
-        <p class="layer-mid">14 September • The Night of Forever</p>
-        <p class="layer-mid">13 October • The Reunion of Souls</p>
-        <button class="btn-interact" onclick="navigate('gallery')">The Memories</button>
+        <div class="label layer-mid">Timeline: 2025</div>
+        <h1 class="layer-high">Our Story</h1>
+        <p class="layer-mid">14 September • The Night of the Vow</p>
+        <p class="layer-mid">13 October • The Reunion of Hearts</p>
+        <button class="btn-touch" onclick="navigate('gallery')">Archives</button>
     </div>
 
     <div id="gallery" class="prism-card">
@@ -193,42 +194,43 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-interact" onclick="navigate('proposal')">My Prayer</button>
+        <button class="btn-touch" onclick="navigate('proposal')">Ascend</button>
     </div>
 
     <div id="proposal" class="prism-card">
-        <div class="label layer-mid">One Choice</div>
+        <div class="label layer-mid">Destiny Choice</div>
         <h1 class="layer-high" style="font-size: 3rem;">Will You Be Mine?</h1>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-            <button class="btn-interact" id="yesBtn">Yes, For Eternity</button>
-            <button class="btn-interact" id="noBtn" style="opacity: 0.2; border-color: #333;">Never</button>
+            <button class="btn-touch" id="yesBtn">Always Yours</button>
+            <button class="btn-touch" id="noBtn" style="opacity: 0.15; border-color: #444;">No</button>
         </div>
     </div>
 
     <div id="final" class="prism-card">
         <h1 class="layer-high">Infinity.</h1>
-        <p id="typewriter" class="layer-mid" style="font-style: italic; font-weight: 200; font-size: 1.1rem; line-height: 1.8;"></p>
-        <div class="label layer-mid" style="margin-top: 30px;">Status: Bound Forever</div>
+        <p id="typewriter" class="layer-mid" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2;"></p>
+        <div class="label layer-mid" style="margin-top: 30px;">I am yours, entirely.</div>
     </div>
 
     <script>
         const photos = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg', 'photo5.jpg', 'photo6.jpg'];
         const bg = document.getElementById('dynamic-bg');
-        const container = document.getElementById('thumb-container');
+        const container = document.getElementById('float-container');
 
         bg.style.backgroundImage = `url(${photos[0]})`;
 
-        function createThumbnails() {
+        // Create Floating Memories
+        function createFloats() {
             for(let i=0; i<10; i++) {
-                let t = document.createElement('div');
-                t.className = 'photo-float';
-                t.style.backgroundImage = `url(${photos[Math.floor(Math.random()*6)]})`;
-                t.style.left = Math.random() * 100 + 'vw';
-                t.style.animationDelay = Math.random() * 12 + 's';
-                container.appendChild(t);
+                let f = document.createElement('div');
+                f.className = 'photo-float';
+                f.style.backgroundImage = `url(${photos[Math.floor(Math.random()*6)]})`;
+                f.style.left = Math.random() * 100 + 'vw';
+                f.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(f);
             }
         }
-        createThumbnails();
+        createFloats();
 
         function navigate(id) {
             document.querySelectorAll('.prism-card').forEach(c => c.classList.remove('active'));
@@ -237,19 +239,16 @@
             const index = ['intro', 'journey', 'gallery', 'proposal', 'final'].indexOf(id);
             if(index >= 0) bg.style.backgroundImage = `url(${photos[index % photos.length]})`;
             
-            if(id === 'journey') document.getElementById('bg-audio').play().catch(()=>{});
-            if(id === 'final') {
-                document.body.style.background = "radial-gradient(circle at center, #2e050c 0%, #050102 100%)";
-                type();
-            }
+            if(id === 'journey') document.getElementById('music').play().catch(()=>{});
+            if(id === 'final') type();
         }
 
-        // --- STABILIZED LIQUID INTERACTION ---
+        // --- LIQUID TILT PHYSICS ---
         const handleInteraction = (e) => {
             const card = document.querySelector('.prism-card.active');
             if(card) {
-                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 75;
-                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 75;
+                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 70;
+                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 70;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         };
@@ -257,9 +256,9 @@
         window.addEventListener('touchmove', handleInteraction);
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From the first time our paths crossed to the last breath I take, I am yours entirely. I love you, forever.";
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, my soul is bound to yours. I love you, forever.";
             let i = 0; const el = document.getElementById('typewriter');
-            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 55);
+            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
 
         const no = document.getElementById('noBtn');
@@ -280,7 +279,7 @@
                 slides[cur].classList.add('active');
                 bg.style.backgroundImage = `url(${photos[cur]})`;
             }
-        }, 4000);
+        }, 4500);
     </script>
 </body>
 </html>
