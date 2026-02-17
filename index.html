@@ -29,26 +29,62 @@
             touch-action: none;
         }
 
-        /* --- ROMANTIC LAYERED BACKGROUND --- */
-        #canvas-layer {
+        /* --- THE ENVELOPE GATE --- */
+        #envelope-gate {
+            position: fixed;
+            inset: 0;
+            background: var(--midnight);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wax-seal {
+            width: 110px;
+            height: 110px;
+            background: rgba(229, 179, 163, 0.05);
+            border: 1px solid var(--rose);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(229, 179, 163, 0.1);
+            animation: pulseSeal 2s infinite ease-in-out;
+            transform-style: preserve-3d;
+        }
+
+        .wax-seal span {
+            font-size: 2.2rem;
+            color: var(--rose);
+        }
+
+        @keyframes pulseSeal {
+            0%, 100% { transform: scale(1) translateZ(0); opacity: 0.7; }
+            50% { transform: scale(1.1) translateZ(50px); opacity: 1; box-shadow: 0 0 50px rgba(229, 179, 163, 0.3); }
+        }
+
+        /* --- ROMANTIC ATMOSPHERE --- */
+        #particle-canvas {
             position: fixed;
             inset: 0;
             z-index: -1;
             background: radial-gradient(circle at center, #1a080e 0%, #050103 100%);
         }
 
-        /* --- THE BALANCED MONOLITH --- */
+        /* --- THE SANCTUARY --- */
         .sanctuary {
             position: absolute;
             width: 90vw;
             max-width: 420px;
             aspect-ratio: 9/16;
             background: var(--glass);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            /* Animated Border */
-            border: 1px solid transparent;
-            border-image: linear-gradient(to bottom, var(--rose), transparent) 1;
+            backdrop-filter: blur(45px) saturate(180%);
+            -webkit-backdrop-filter: blur(45px) saturate(180%);
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
             border-radius: 60px;
             display: none;
             flex-direction: column;
@@ -56,19 +92,18 @@
             align-items: center;
             padding: 45px;
             text-align: center;
-            box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+            box-shadow: 0 40px 120px rgba(0,0,0,0.9);
             transform-style: preserve-3d;
             transition: transform 0.15s ease-out;
         }
 
-        .sanctuary.active { display: flex; animation: gateOpen 2.5s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+        .sanctuary.active { display: flex; animation: reveal 2.8s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
 
-        @keyframes gateOpen {
-            from { opacity: 0; transform: scale(0.8) translateZ(-800px); }
+        @keyframes reveal {
+            from { opacity: 0; transform: scale(0.85) translateZ(-500px); }
             to { opacity: 1; transform: scale(1) translateZ(0); }
         }
 
-        /* --- BALANCED TYPOGRAPHY --- */
         h1 {
             font-family: 'Italianno', cursive;
             font-size: clamp(3.5rem, 15vw, 5rem);
@@ -77,7 +112,7 @@
             font-weight: 400;
         }
 
-        .sub-text {
+        .label {
             font-family: 'Montserrat', sans-serif;
             font-size: 0.65rem;
             color: rgba(255,255,255,0.4);
@@ -86,12 +121,11 @@
             margin-bottom: 30px;
         }
 
-        .romantic-quote {
+        .script-quote {
             font-family: 'Italianno', cursive;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--rose);
             line-height: 1.2;
-            opacity: 0.9;
         }
 
         /* --- CINEMATIC WINDOW --- */
@@ -100,7 +134,7 @@
             aspect-ratio: 4/5;
             border-radius: 40px;
             overflow: hidden;
-            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             margin: 20px 0;
             position: relative;
             transform: translateZ(60px);
@@ -113,14 +147,13 @@
             transition: opacity 2s ease;
         }
 
-        .slide.active { opacity: 1; animation: breatheIn 12s infinite alternate; }
+        .slide.active { opacity: 1; animation: softBreathe 12s infinite alternate; }
 
-        @keyframes breatheIn {
+        @keyframes softBreathe {
             from { transform: scale(1); }
-            to { transform: scale(1.15) rotate(1.5deg); }
+            to { transform: scale(1.15) rotate(1deg); }
         }
 
-        /* --- REFINED BUTTON --- */
         .btn-love {
             background: rgba(255, 255, 255, 0.03);
             border: 0.5px solid var(--rose);
@@ -128,7 +161,7 @@
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 4px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             border-radius: 100px;
             margin-top: 30px;
             cursor: pointer;
@@ -145,23 +178,28 @@
 </head>
 <body>
 
-    <canvas id="canvas-layer"></canvas>
+    <div id="envelope-gate">
+        <div class="wax-seal" id="sealBtn"><span>❤</span></div>
+        <p style="margin-top: 30px; font-family: 'Italianno', cursive; font-size: 2rem; opacity: 0.6;">Open my heart, Taniya</p>
+    </div>
+
+    <canvas id="particle-canvas"></canvas>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
     <div id="intro" class="sanctuary active">
-        <div class="sub-text">A Soul Recognized</div>
+        <div class="label">The Awakening</div>
         <h1>Taniya</h1>
-        <p class="romantic-quote">My Heart's Quiet Melody</p>
-        <button class="btn-love" onclick="seek('journey')">Open Story</button>
+        <p class="script-quote">My Heart's Quiet Melody</p>
+        <button class="btn-love" onclick="seek('journey')">Our Story</button>
     </div>
 
     <div id="journey" class="sanctuary">
-        <div class="sub-text">Moments In Time</div>
-        <p class="romantic-quote">14 September • The Vow</p>
-        <p class="romantic-quote">13 October • The Reunion</p>
+        <div class="label">Moments in Eternity</div>
+        <p class="script-quote">14 September • The Vow</p>
+        <p class="script-quote">13 October • The Reunion</p>
         <button class="btn-love" onclick="seek('gallery')">Archives</button>
     </div>
 
@@ -178,7 +216,7 @@
     </div>
 
     <div id="proposal" class="sanctuary">
-        <div class="sub-text">Our Destiny</div>
+        <div class="label">One Lifetime</div>
         <h1>Be Mine?</h1>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
             <button class="btn-love" id="yesBtn">Always Yours</button>
@@ -188,42 +226,67 @@
 
     <div id="final" class="sanctuary">
         <h1>Infinity.</h1>
-        <p id="typewriter" class="romantic-quote" style="font-size: 1.6rem;"></p>
-        <div class="sub-text" style="margin-top: 30px;">Forever Bound</div>
+        <p id="typewriter" class="script-quote" style="font-size: 1.7rem;"></p>
+        <div class="label" style="margin-top: 35px;">Forever Yours.</div>
     </div>
 
     <script>
-        const canvas = document.getElementById('canvas-layer');
+        const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        let elements = [];
+        let fireflies = [];
 
-        function init() {
+        // --- HAPTIC HEARTBEAT LOGIC ---
+        const sealBtn = document.getElementById('sealBtn');
+        let heartbeatInterval;
+
+        function startHaptics() {
+            if ("vibrate" in navigator) {
+                heartbeatInterval = setInterval(() => {
+                    navigator.vibrate([100, 50, 100]); // Thump-Thump
+                }, 1400);
+            }
+        }
+
+        function stopHaptics() {
+            clearInterval(heartbeatInterval);
+            if ("vibrate" in navigator) navigator.vibrate(0);
+        }
+
+        // Start heartbeat as soon as she sees the seal
+        startHaptics();
+
+        function openMessage() {
+            stopHaptics(); // Stop once opened, or keep for proposal
+            const gate = document.getElementById('envelope-gate');
+            gate.style.opacity = '0';
+            gate.style.pointerEvents = 'none';
+            document.getElementById('music').play().catch(()=>{});
+        }
+
+        sealBtn.addEventListener('click', openMessage);
+
+        function initParticles() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            elements = [];
-            for(let i=0; i<80; i++) elements.push({
+            fireflies = Array.from({length: 50}, () => ({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 2 + 1,
-                vx: Math.random() * 0.5 - 0.25,
-                vy: Math.random() * 0.5 - 0.25,
-                opacity: Math.random()
-            });
+                s: Math.random() * 2 + 1,
+                vx: Math.random() * 0.4 - 0.2,
+                vy: Math.random() * 0.4 - 0.2,
+                o: Math.random()
+            }));
         }
-        init(); window.onresize = init;
+        initParticles(); window.onresize = initParticles;
 
         function animate() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            elements.forEach(e => {
-                e.x += e.vx; e.y += e.vy;
-                if(e.x < 0) e.x = canvas.width; if(e.x > canvas.width) e.x = 0;
-                if(e.y < 0) e.y = canvas.height; if(e.y > canvas.height) e.y = 0;
-                ctx.fillStyle = `rgba(229, 179, 163, ${e.opacity})`;
-                ctx.beginPath();
-                ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
-                ctx.fill();
-                // Glowing "firefly" effect
-                ctx.shadowBlur = 10; ctx.shadowColor = 'var(--rose)';
+            fireflies.forEach(f => {
+                f.x += f.vx; f.y += f.vy;
+                if(f.x < 0) f.x = canvas.width; if(f.x > canvas.width) f.x = 0;
+                if(f.y < 0) f.y = canvas.height; if(f.y > canvas.height) f.y = 0;
+                ctx.fillStyle = `rgba(229, 179, 163, ${f.o})`;
+                ctx.beginPath(); ctx.arc(f.x, f.y, f.s, 0, Math.PI * 2); ctx.fill();
             });
             requestAnimationFrame(animate);
         }
@@ -232,16 +295,19 @@
         function seek(id) {
             document.querySelectorAll('.sanctuary').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(id === 'journey') document.getElementById('music').play().catch(()=>{});
-            if(id === 'proposal') { if ("vibrate" in navigator) navigator.vibrate([100, 50, 100]); }
+            if(id === 'proposal') { 
+                startHaptics(); // Heartbeat returns for the proposal
+            } else if(id !== 'proposal') {
+                stopHaptics();
+            }
             if(id === 'final') type();
         }
 
         window.addEventListener('mousemove', (e) => {
             const card = document.querySelector('.sanctuary.active');
             if(card) {
-                let x = (window.innerWidth / 2 - e.clientX) / 80;
-                let y = (window.innerHeight / 2 - e.clientY) / 80;
+                let x = (window.innerWidth / 2 - e.clientX) / 85;
+                let y = (window.innerHeight / 2 - e.clientY) / 85;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         });
