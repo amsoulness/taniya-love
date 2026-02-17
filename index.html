@@ -1,645 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Taniya ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-<title>For Taniya ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-<style>
+        /* Sections */
+        .section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            animation: fade 1.2s ease;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+        .section.active {
+            display: flex;
+        }
 
-body{
-font-family:'Poppins',sans-serif;
-height:100vh;
-overflow:hidden;
-background:linear-gradient(135deg,#ff758c,#ff7eb3);
-color:white;
-}
+        @keyframes fade {
+            from { opacity: 0; transform: scale(.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-/* Sections */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, .6);
+        }
 
-.section{
-position:absolute;
-width:100%;
-height:100%;
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-padding:20px;
-animation:fade 1.2s ease;
-}
+        p {
+            max-width: 500px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
 
-.section.active{
-display:flex;
-}
+        /* Buttons */
+        button {
+            z-index: 10;
+            margin-top: 25px;
+            padding: 14px 28px;
+            font-size: 17px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            transition: .3s;
+            animation: glow 2s infinite;
+        }
 
-@keyframes fade{
-from{opacity:0;transform:scale(.95);}
-to{opacity:1;transform:scale(1);}
-}
+        button:hover {
+            transform: scale(1.08);
+        }
 
-h1{
-font-family:'Great Vibes',cursive;
-font-size:3rem;
-margin-bottom:15px;
-text-shadow:0 0 20px rgba(255,255,255,.6);
-}
+        #noBtn {
+            position: absolute;
+            transition: all 0.2s ease-out; /* Smooth escape */
+        }
 
-p{
-max-width:500px;
-font-size:1.1rem;
-line-height:1.6;
-}
+        /* Cinematic Photo Frame */
+        .cinema-frame {
+            position: relative;
+            width: 90%;
+            max-width: 380px;
+            aspect-ratio: 3/4;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,.5);
+            background: rgba(0,0,0,0.1); /* Fallback */
+        }
 
-/* Buttons */
+        /* The Slide Fix */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;            /* Forces image to start at left edge */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center; /* Centers the crop */
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 1.5s ease, transform 4s ease;
+        }
 
-button{
-margin-top:25px;
-padding:14px 28px;
-font-size:17px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-background:rgba(255,255,255,0.15);
-color:white;
-backdrop-filter:blur(10px);
-box-shadow:0 0 20px rgba(255,255,255,0.4);
-transition:.3s;
-}
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-button:hover{
-transform:scale(1.08);
-}
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(255,255,255,0.15), transparent 40%, transparent 60%, rgba(255,255,255,0.1));
+            pointer-events: none;
+        }
 
-#noBtn{
-position:absolute;
-}
+        .dots {
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+            text-align: center;
+        }
 
-/* Gallery */
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .5);
+            margin: 4px;
+            transition: .3s;
+        }
 
-.gallery{
-display:flex;
-gap:10px;
-overflow-x:auto;
-padding:10px;
-}
+        .dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
 
-.gallery img{
-height:220px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,.4);
-}
+        /* Visual Effects */
+        .heart {
+            position: fixed;
+            color: white;
+            animation: float 6s linear infinite;
+            pointer-events: none;
+        }
 
-/* Hearts */
+        @keyframes float {
+            from { transform: translateY(100vh); opacity: 1; }
+            to { transform: translateY(-10vh); opacity: 0; }
+        }
 
-.heart{
-position:fixed;
-color:white;
-animation:float 6s linear infinite;
-pointer-events:none;
-}
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, .3); }
+            50% { box-shadow: 0 0 25px rgba(255, 255, 255, .8); }
+            100% { box-shadow: 0 0 10px rgba(255, 255, 255, .3); }
+        }
 
-@keyframes float{
-from{transform:translateY(100vh);opacity:1;}
-to{transform:translateY(-10vh);opacity:0;}
-}
+        .particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            pointer-events: none;
+        }
 
-/* Firework particles */
-
-.particle{
-position:fixed;
-width:6px;
-height:6px;
-border-radius:50%;
-background:white;
-pointer-events:none;
-}
-
-/* Cinematic Background */
-
-body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 40%),
-            radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1), transparent 40%);
-animation:bgMove 15s linear infinite;
-z-index:-1;
-}
-
-@keyframes bgMove{
-0%{transform:translate(0,0);}
-50%{transform:translate(-10%, -10%);}
-100%{transform:translate(0,0);}
-}
-
-
-/* Text Reveal */
-
-.reveal{
-opacity:0;
-transform:translateY(30px);
-animation:reveal 1.5s forwards;
-}
-
-@keyframes reveal{
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-
-/* Button Glow */
-
-button{
-animation:glow 2s infinite;
-}
-
-@keyframes glow{
-0%{box-shadow:0 0 10px rgba(255,255,255,.3);}
-50%{box-shadow:0 0 25px rgba(255,255,255,.8);}
-100%{box-shadow:0 0 10px rgba(255,255,255,.3);}
-}
-
-
-/* Dark cinematic edges */
-
-body::after{
-content:"";
-position:fixed;
-inset:0;
-background:radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5));
-pointer-events:none;
-}
-
-/* Slideshow */
-
-.slideshow{
-position:relative;
-width:90%;
-max-width:400px;
-height:60vh;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 0 30px rgba(0,0,0,.4);
-}
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-opacity:0;
-transition:opacity 1.5s ease;
-}
-
-.slide.active{
-opacity:1;
-}
-
-
-/* Romantic glow overlay */
-
-.slideshow::after{
-content:"";
-position:absolute;
-inset:0;
-background:radial-gradient(circle, transparent 60%, rgba(0,0,0,.4));
-pointer-events:none;
-}
-
-
-/* Cinematic Photo Frame */
-
-.cinema-frame{
-position:relative;
-width:90%;
-max-width:380px;
-aspect-ratio:3/4;   /* PERFECT FOR MOBILE */
-border-radius:25px;
-overflow:hidden;
-box-shadow:0 20px 50px rgba(0,0,0,.5);
-}
-
-
-/* Slides */
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-opacity:0;
-transform:scale(1.1);
-transition:opacity 1.5s ease, transform 4s ease;
-}
-
-.slide.active{
-opacity:1;
-transform:scale(1);
-}
-
-
-/* Glass overlay */
-
-.overlay{
-position:absolute;
-inset:0;
-background:linear-gradient(
-120deg,
-rgba(255,255,255,0.15),
-transparent 40%,
-transparent 60%,
-rgba(255,255,255,0.1)
-);
-pointer-events:none;
-}
-
-
-/* Dots indicator */
-
-.dots{
-position:absolute;
-bottom:10px;
-width:100%;
-text-align:center;
-}
-
-.dot{
-display:inline-block;
-width:8px;
-height:8px;
-border-radius:50%;
-background:rgba(255,255,255,.5);
-margin:4px;
-transition:.3s;
-}
-
-.dot.active{
-background:white;
-transform:scale(1.3);
-}
-
-  
-</style>
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5));
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- MUSIC -->
-<audio id="music" loop>
-<source src="blue.mp3" type="audio/mpeg">
-</audio>
-
-<!-- INTRO -->
-<div id="intro" class="section active">
-
-<h1 class="reveal">Taniya Elsa John ❤️</h1>
-
-<p class="reveal">
-From our +2 tour in Ernakulam…  
-to the most beautiful love story of my life.
-</p>
-
-<button onclick="startJourney()">Our Journey ✨</button>
-
-</div>
-
-
-<!-- JOURNEY -->
-<div id="journey" class="section">
-
-<h1>Our Story 💞</h1>
-
-<p>
-We first met during our +2 tour in Ernakulam, Kerala, India.  
-A moment destiny quietly wrote for us.
-</p>
-
-<p>
-We committed on <b>14 September 2025</b> ❤️  
-And met again for the first time after committing on  
-<b>13 October 2025</b>.
-</p>
-
-<button onclick="showSection('gallery')">Memories ➜</button>
-
-</div>
-
-
-<!-- GALLERY -->
-<div id="gallery" class="section">
-
-<h1 class="reveal">Our Memories 📸</h1>
-
-<div class="cinema-frame">
-
-  <img class="slide active" src="photo1.jpg">
-  <img class="slide" src="photo2.jpg">
-  <img class="slide" src="photo3.jpg">
-  <img class="slide" src="photo4.jpg">
-  <img class="slide" src="photo5.jpg">
-  <img class="slide" src="photo6.jpg">
-
-  <div class="overlay"></div>
-
-  <div class="dots">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </div>
-
-</div>
-
-<button onclick="showSection('proposal')">Next ➜</button>
-
-</div>
-
-
-
-<!-- PROPOSAL -->
-<div id="proposal" class="section">
-
-<h1>Will You Be My Wife? 💍</h1>
-
-<button id="yesBtn">Yes ❤️</button>
-<button id="noBtn">No 😜</button>
-
-</div>
-
-
-<!-- FINAL -->
-<div id="final" class="section">
-
-<h1>Thank You Babe ❤️</h1>
-
-<p>
-You are my forever,  
-my dream,  
-my home,  
-and the love I will choose in every lifetime.
-</p>
-
-</div>
-
-
-<script>
-
-/* IMMORTAL SLIDESHOW */
-
-let currentSlide=0;
-let slides=document.querySelectorAll(".slide");
-let dots=document.querySelectorAll(".dot");
-let slideshowStarted=false;
-
-function showSlide(index){
-
-slides.forEach(s=>s.classList.remove("active"));
-dots.forEach(d=>d.classList.remove("active"));
-
-slides[index].classList.add("active");
-dots[index].classList.add("active");
-
-}
-
-
-function startSlideshow(){
-
-if(slideshowStarted) return;
-
-slideshowStarted=true;
-
-setInterval(()=>{
-
-currentSlide=(currentSlide+1)%slides.length;
-showSlide(currentSlide);
-
-},3500);
-
-}
-
-
-/* Start when gallery opens */
-
-const gallery=document.getElementById("gallery");
-
-const observer=new MutationObserver(()=>{
-
-if(gallery.classList.contains("active")){
-slides=document.querySelectorAll(".slide");
-dots=document.querySelectorAll(".dot");
-startSlideshow();
-}
-
-});
-
-observer.observe(gallery,{attributes:true});
-
-
-/* Swipe support for mobile */
-
-let startX=0;
-
-document.addEventListener("touchstart",(e)=>{
-startX=e.touches[0].clientX;
-});
-
-document.addEventListener("touchend",(e)=>{
-
-let endX=e.changedTouches[0].clientX;
-
-if(Math.abs(startX-endX)>50){
-
-if(startX>endX){
-currentSlide=(currentSlide+1)%slides.length;
-}else{
-currentSlide=(currentSlide-1+slides.length)%slides.length;
-}
-
-showSlide(currentSlide);
-
-}
-
-});
-
-
-/* Section Navigation */
-
-function showSection(id){
-
-const current=document.querySelector(".section.active");
-const next=document.getElementById(id);
-
-if(current){
-current.animate([
-{opacity:1, transform:"scale(1)"},
-{opacity:0, transform:"scale(1.1)"}
-],{duration:500});
-}
-
-setTimeout(()=>{
-
-document.querySelectorAll(".section").forEach(sec=>{
-sec.classList.remove("active");
-});
-
-next.classList.add("active");
-
-next.animate([
-{opacity:0, transform:"scale(.9)"},
-{opacity:1, transform:"scale(1)"}
-],{duration:600});
-
-},400);
-
-}
-
-
-
-/* Start Journey + Music */
-
-function startJourney(){
-
-showSection('journey');
-
-const music=document.getElementById("music");
-
-if(music){
-music.play().catch(()=>{});
-}
-
-}
-
-
-/* Moving NO Button */
-
-const noBtn=document.getElementById("noBtn");
-
-function moveNo(){
-
-const x=Math.random()*(window.innerWidth-100);
-const y=Math.random()*(window.innerHeight-60);
-
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-}
-
-if(noBtn){
-
-noBtn.addEventListener("mouseover",moveNo);
-noBtn.addEventListener("click",moveNo);
-
-}
-
-
-/* YES Button */
-
-const yesBtn=document.getElementById("yesBtn");
-
-if(yesBtn){
-
-yesBtn.addEventListener("click",()=>{
-
-showSection("final");
-fireworks();
-
-});
-
-}
-
-
-/* Floating Hearts */
-
-setInterval(()=>{
-
-const heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+10)+"px";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>heart.remove(),6000);
-
-},350);
-
-
-/* Fireworks */
-
-function fireworks(){
-
-for(let i=0;i<40;i++){
-
-let p=document.createElement("div");
-p.className="particle";
-
-let angle=Math.random()*360;
-let distance=Math.random()*250;
-
-p.style.left="50%";
-p.style.top="50%";
-
-document.body.appendChild(p);
-
-p.animate([
-{transform:"translate(0,0)",opacity:1},
-{transform:`translate(${Math.cos(angle)*distance}px,${Math.sin(angle)*distance}px)`,opacity:0}
-],{duration:1200});
-
-setTimeout(()=>p.remove(),1200);
-
-}
-
-}
-
-/* Floating Light Particles */
-
-setInterval(()=>{
-
-let p=document.createElement("div");
-
-p.style.position="fixed";
-p.style.width="4px";
-p.style.height="4px";
-p.style.borderRadius="50%";
-p.style.background="rgba(255,255,255,0.8)";
-p.style.left=Math.random()*100+"vw";
-p.style.top="100vh";
-p.style.pointerEvents="none";
-
-document.body.appendChild(p);
-
-p.animate([
-{transform:"translateY(0)",opacity:1},
-{transform:"translateY(-110vh)",opacity:0}
-],{duration:6000});
-
-setTimeout(()=>p.remove(),6000);
-
-},200);
-
-
-</script>
-
+    <audio id="music" loop>
+        <source src="blue.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="intro" class="section active">
+        <h1>Taniya Elsa John ❤️</h1>
+        <p>From our +2 tour in Ernakulam… to the most beautiful love story of my life.</p>
+        <button onclick="startJourney()">Our Journey ✨</button>
+    </div>
+
+    <div id="journey" class="section">
+        <h1>Our Story 💞</h1>
+        <p>We first met during our +2 tour in Ernakulam, Kerala.</p>
+        <p>Committed on <b>14 September 2025</b> ❤️</p>
+        <p>Met again on <b>13 October 2025</b>.</p>
+        <button onclick="showSection('gallery')">Memories ➜</button>
+    </div>
+
+    <div id="gallery" class="section">
+        <h1>Our Memories 📸</h1>
+        <div class="cinema-frame">
+            <img class="slide active" src="photo1.jpg">
+            <img class="slide" src="photo2.jpg">
+            <img class="slide" src="photo3.jpg">
+            <img class="slide" src="photo4.jpg">
+            <img class="slide" src="photo5.jpg">
+            <img class="slide" src="photo6.jpg">
+            <div class="overlay"></div>
+            <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+        <button onclick="showSection('proposal')">Next ➜</button>
+    </div>
+
+    <div id="proposal" class="section">
+        <h1>Will You Be My Wife? 💍</h1>
+        <div style="position: relative; width: 100%; height: 100px;">
+            <button id="yesBtn">Yes ❤️</button>
+            <button id="noBtn">No 😜</button>
+        </div>
+    </div>
+
+    <div id="final" class="section">
+        <h1>Thank You Babe ❤️</h1>
+        <p>You are my forever, my dream, my home, and the love I will choose in every lifetime.</p>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        let slides = document.querySelectorAll(".slide");
+        let dots = document.querySelectorAll(".dot");
+        let slideshowStarted = false;
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove("active"));
+            dots.forEach(d => d.classList.remove("active"));
+            slides[index].classList.add("active");
+            dots[index].classList.add("active");
+        }
+
+        function startSlideshow() {
+            if (slideshowStarted) return;
+            slideshowStarted = true;
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 3500);
+        }
+
+        // Observer for Gallery
+        const gallery = document.getElementById("gallery");
+        const observer = new MutationObserver(() => {
+            if (gallery.classList.contains("active")) startSlideshow();
+        });
+        observer.observe(gallery, { attributes: true });
+
+        // Navigation
+        function showSection(id) {
+            document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+            document.getElementById(id).classList.add("active");
+        }
+
+        function startJourney() {
+            showSection('journey');
+            document.getElementById("music").play().catch(() => {});
+        }
+
+        // Moving NO Button Fix
+        const noBtn = document.getElementById("noBtn");
+        function moveNo() {
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 80);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+        noBtn.addEventListener("mouseover", moveNo);
+        noBtn.addEventListener("click", moveNo);
+
+        // YES Button
+        document.getElementById("yesBtn").addEventListener("click", () => {
+            showSection("final");
+            fireworks();
+        });
+
+        // Background Effects
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }, 350);
+
+        function fireworks() {
+            for (let i = 0; i < 50; i++) {
+                let p = document.createElement("div");
+                p.className = "particle";
+                let angle = Math.random() * 360;
+                let distance = Math.random() * 300;
+                p.style.left = "50%"; p.style.top = "50%";
+                document.body.appendChild(p);
+                p.animate([
+                    { transform: "translate(0,0)", opacity: 1 },
+                    { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0 }
+                ], { duration: 1500 });
+                setTimeout(() => p.remove(), 1500);
+            }
+        }
+    </script>
 </body>
 </html>
-
-
-
