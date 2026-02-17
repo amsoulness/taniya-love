@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aurora | Taniya</title>
+    <title>Infinity | Taniya</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --rose: #e5b3a3;
             --midnight: #050103;
-            --aurora: rgba(0, 212, 255, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -25,172 +24,165 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 2500px;
+            perspective: 2000px;
             touch-action: none;
         }
 
-        /* --- DYNAMIC AURORA NEBULA --- */
-        #aurora-bg {
+        /* --- ENVELOPE OPENING --- */
+        #envelope-gate {
             position: fixed;
-            inset: -20%;
-            z-index: -2;
-            background-size: cover;
-            background-position: center;
-            filter: blur(90px) brightness(0.3);
-            transition: background-image 3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: auroraBreathe 12s infinite alternate ease-in-out;
+            inset: 0;
+            background: var(--midnight);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes auroraBreathe {
-            0% { transform: scale(1) rotate(0deg); opacity: 0.4; }
-            100% { transform: scale(1.2) rotate(5deg); opacity: 0.8; }
-        }
-
-        /* --- FLOATING MEMORY CRYSTALS --- */
-        .crystal {
-            position: fixed;
-            width: 85px;
-            height: 85px;
+        .seal {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--rose);
             border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.3;
-            animation: orbital 22s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(229, 179, 163, 0.2);
         }
 
-        @keyframes orbital {
-            from { transform: translateY(110vh) rotate(0deg) translateZ(-500px); }
-            to { transform: translateY(-25vh) rotate(360deg) translateZ(100px); }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(229, 179, 163, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(229, 179, 163, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(229, 179, 163, 0.2); }
         }
 
-        /* --- THE 3D GLASS SANCTUARY --- */
-        .monolith {
+        .seal i { font-style: normal; font-size: 2rem; }
+
+        /* --- MAIN INTERFACE --- */
+        .prism-card {
             position: absolute;
             width: 92vw;
-            max-width: 460px;
+            max-width: 450px;
             aspect-ratio: 9/16;
-            background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
-            backdrop-filter: blur(40px) saturate(220%);
-            -webkit-backdrop-filter: blur(40px) saturate(220%);
-            border: 0.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 70px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 50px;
+            padding: 40px;
             text-align: center;
-            box-shadow: 0 60px 150px rgba(0,0,0,0.9);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
             transform-style: preserve-3d;
-            transition: transform 0.12s linear;
+            transition: transform 0.15s ease-out; 
         }
 
-        .monolith.active { display: flex; animation: gateOpen 2.2s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+        .prism-card.active { display: flex; animation: reveal 2s ease-out forwards; }
 
-        @keyframes gateOpen {
-            from { opacity: 0; transform: translateZ(-800px) rotateX(15deg); }
-            to { opacity: 1; transform: translateZ(0) rotateX(0); }
+        @keyframes reveal {
+            from { opacity: 0; transform: scale(0.9) translateZ(-500px); }
+            to { opacity: 1; transform: scale(1) translateZ(0); }
         }
-
-        /* Depth Layers */
-        .depth-mid { transform: translateZ(60px); }
-        .depth-high { transform: translateZ(120px); text-shadow: 0 10px 40px rgba(229, 179, 163, 0.5); }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.8rem, 16vw, 6rem);
+            font-size: clamp(3.5rem, 15vw, 5.5rem);
             color: var(--rose);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        .cyber-whisper {
+        .label {
             font-family: 'Cinzel', serif;
             font-size: 0.7rem;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 8px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 7px;
             text-transform: uppercase;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
         }
 
-        /* --- CINEMATIC WINDOW --- */
-        .window {
+        /* --- GALLERY PORTAL --- */
+        .portal {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 50px;
+            border-radius: 45px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
             position: relative;
-            transform: translateZ(85px);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            transform: translateZ(70px);
         }
 
         .slide {
             position: absolute;
             inset: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0;
-            transition: opacity 2s ease-in-out;
+            transition: opacity 2s ease;
         }
 
-        .slide.active { opacity: 1; animation: deepZoom 15s infinite alternate ease-in-out; }
+        .slide.active { opacity: 1; animation: breathe 15s infinite alternate ease-in-out; }
 
-        @keyframes deepZoom {
+        @keyframes breathe {
             from { transform: scale(1); }
-            to { transform: scale(1.2) rotate(1.5deg); }
+            to { transform: scale(1.15) rotate(1deg); }
         }
 
-        /* --- AURORA BUTTONS --- */
-        .btn-aurora {
+        .btn-touch {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--rose);
-            padding: 22px 60px;
+            border: 0.5px solid var(--rose);
+            padding: 18px 45px;
             color: #fff;
             font-family: 'Cinzel', serif;
-            letter-spacing: 6px;
-            font-size: 0.85rem;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
             border-radius: 100px;
-            margin-top: 35px;
+            margin-top: 25px;
             cursor: pointer;
-            transition: 0.6s;
-            transform: translateZ(70px);
+            transition: 0.4s;
         }
 
-        .btn-aurora:hover {
+        .btn-touch:hover {
             background: var(--rose);
-            box-shadow: 0 0 60px var(--rose);
-            transform: translateZ(100px) scale(1.05);
+            box-shadow: 0 0 50px var(--rose);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <div id="aurora-bg"></div>
-    <div id="memory-palace"></div>
+    <div id="envelope-gate">
+        <div class="seal" onclick="openLetter()"><i>❤</i></div>
+        <p style="margin-top: 25px; font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 0.7rem; opacity: 0.6;">A Message for Taniya</p>
+    </div>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="intro" class="monolith active">
-        <div class="cyber-whisper depth-mid">A Soul Found</div>
-        <h1 class="depth-high">Taniya</h1>
-        <p class="depth-mid" style="font-weight: 100; letter-spacing: 2px; opacity: 0.7;">From the moment our paths crossed... to the forever we are building.</p>
-        <button class="btn-aurora depth-mid" onclick="seek('journey')">Our Story</button>
+    <div id="intro" class="prism-card active">
+        <div class="label">A Soul Found</div>
+        <h1>Taniya</h1>
+        <p style="font-weight: 100; letter-spacing: 2px; opacity: 0.7;">From the moment our paths crossed... to the forever we are building together.</p>
+        <button class="btn-touch" onclick="navigate('journey')">Our Story</button>
     </div>
 
-    <div id="journey" class="monolith">
-        <div class="cyber-whisper depth-mid">Timeline Archives</div>
-        <h1 class="depth-high">Our Vows</h1>
-        <p class="depth-mid">14 September • The Night of the Promise</p>
-        <p class="depth-mid">13 October • The Reunion of Souls</p>
-        <button class="btn-aurora depth-mid" onclick="seek('gallery')">Memories</button>
+    <div id="journey" class="prism-card">
+        <div class="label">Timeless Moments</div>
+        <h1 style="font-size: 3rem;">The Promise</h1>
+        <p>14 September • The Beginning</p>
+        <p>13 October • The Reunion</p>
+        <button class="btn-touch" onclick="navigate('gallery')">Archives</button>
     </div>
 
-    <div id="gallery" class="monolith">
-        <div class="window">
+    <div id="gallery" class="prism-card">
+        <div class="portal">
             <img class="slide active" src="photo1.jpg">
             <img class="slide" src="photo2.jpg">
             <img class="slide" src="photo3.jpg">
@@ -198,80 +190,51 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-aurora depth-mid" onclick="seek('proposal')">Ascend</button>
+        <button class="btn-touch" onclick="navigate('proposal')">Ascend</button>
     </div>
 
-    <div id="proposal" class="monolith">
-        <div class="cyber-whisper depth-mid">One Destiny</div>
-        <h1 class="depth-high" style="font-size: 3.2rem;">Be My Wife?</h1>
-        <div style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
-            <button class="btn-aurora depth-mid" id="yesBtn">Always Yours</button>
-            <button class="btn-aurora depth-mid" id="noBtn" style="opacity: 0.1; border-color: #333;">No</button>
+    <div id="proposal" class="prism-card">
+        <div class="label">One Lifetime</div>
+        <h1 style="font-size: 3rem;">Will You Be Mine?</h1>
+        <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+            <button class="btn-touch" id="yesBtn">Yes, Forever</button>
+            <button class="btn-touch" id="noBtn" style="opacity: 0.1; border-color: #444;">No</button>
         </div>
     </div>
 
-    <div id="final" class="monolith">
-        <h1 class="depth-high">Infinity.</h1>
-        <p id="typewriter" class="depth-mid" style="font-style: italic; font-weight: 200; font-size: 1.2rem; line-height: 2;"></p>
-        <div class="cyber-whisper depth-mid" style="margin-top: 40px;">Forever Bound</div>
+    <div id="final" class="prism-card">
+        <h1>Infinity.</h1>
+        <p id="typewriter" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2;"></p>
+        <div class="label" style="margin-top: 30px;">I am yours, entirely.</div>
     </div>
 
     <script>
-        const photos = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg', 'photo5.jpg', 'photo6.jpg'];
-        const aurora = document.getElementById('aurora-bg');
-        const palace = document.getElementById('memory-palace');
-
-        aurora.style.backgroundImage = `url(${photos[0]})`;
-
-        function buildPalace() {
-            for(let i=0; i<12; i++) {
-                let crystal = document.createElement('div');
-                crystal.className = 'crystal';
-                crystal.style.backgroundImage = `url(${photos[Math.floor(Math.random()*6)]})`;
-                crystal.style.left = Math.random() * 100 + 'vw';
-                crystal.style.animationDelay = Math.random() * 12 + 's';
-                palace.appendChild(crystal);
-            }
+        function openLetter() {
+            const gate = document.getElementById('envelope-gate');
+            gate.style.opacity = '0';
+            gate.style.pointerEvents = 'none';
+            document.getElementById('music').play().catch(()=>{});
         }
-        buildPalace();
 
-        function seek(id) {
-            document.querySelectorAll('.monolith').forEach(m => m.classList.remove('active'));
+        function navigate(id) {
+            document.querySelectorAll('.prism-card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            
-            const index = ['intro', 'journey', 'gallery', 'proposal', 'final'].indexOf(id);
-            if(index >= 0) aurora.style.backgroundImage = `url(${photos[index % photos.length]})`;
-            
-            if(id === 'journey') document.getElementById('music').play().catch(()=>{});
-            if(id === 'proposal') startHapticHeart();
             if(id === 'final') type();
         }
 
-        // --- LIQUID TILT INTERACTION ---
-        const handle3D = (e) => {
-            const m = document.querySelector('.monolith.active');
-            if(m) {
-                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 60;
-                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 60;
-                m.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+        const handleInteraction = (e) => {
+            const card = document.querySelector('.prism-card.active');
+            if(card) {
+                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 75;
+                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 75;
+                card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         };
-        window.addEventListener('mousemove', handle3D);
-        window.addEventListener('touchmove', handle3D);
-
-        // --- HAPTIC HEARTBEAT FOR MOBILE ---
-        function startHapticHeart() {
-            if ("vibrate" in navigator) {
-                setInterval(() => {
-                    if(document.getElementById('proposal').classList.contains('active')) {
-                        navigator.vibrate([100, 50, 100]); // Thump-thump
-                    }
-                }, 1500);
-            }
-        }
+        window.addEventListener('mousemove', handleInteraction);
+        window.addEventListener('touchmove', handleInteraction);
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From the first time our paths crossed to the last breath I take, I am yours entirely. I love you, forever.";
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, I am yours. I love you, forever.";
             let i = 0; const el = document.getElementById('typewriter');
             const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
@@ -284,7 +247,7 @@
         };
         no.onmouseover = jump; no.ontouchstart = jump;
 
-        document.getElementById('yesBtn').onclick = () => seek('final');
+        document.getElementById('yesBtn').onclick = () => navigate('final');
 
         let cur = 0; const slides = document.querySelectorAll('.slide');
         setInterval(() => {
@@ -292,9 +255,8 @@
                 slides[cur].classList.remove('active');
                 cur = (cur + 1) % slides.length;
                 slides[cur].classList.add('active');
-                aurora.style.backgroundImage = `url(${photos[cur]})`;
             }
-        }, 4500);
+        }, 4000);
     </script>
 </body>
 </html>
