@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nocturne | Taniya</title>
+    <title>Soul Resonance | Taniya</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;200;400&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --rose-gold: #e5b3a3;
-            --deep-noir: #080205;
-            --glow: rgba(229, 179, 163, 0.3);
+            --midnight: #050103;
+            --soft-glow: rgba(229, 179, 163, 0.25);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background: var(--deep-noir);
+            background: var(--midnight);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             height: 100vh;
@@ -25,105 +25,106 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1200px;
+            perspective: 1500px;
             touch-action: none;
         }
 
-        /* --- AMBIENT ATMOSPHERE --- */
-        #aura {
+        /* --- ETHEREAL ATMOSPHERE --- */
+        #nebula {
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: radial-gradient(circle at center, #1a080e 0%, #080205 100%);
+            background: radial-gradient(circle at center, #1a060d 0%, #050103 100%);
         }
 
-        /* --- THE LIQUID GLASS MONOLITH --- */
+        /* --- THE LIQUID CRYSTAL MONOLITH --- */
         .sanctuary {
             position: absolute;
-            width: 90vw;
+            width: 92vw;
             max-width: 440px;
             aspect-ratio: 9/16;
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(25px) brightness(0.8);
-            -webkit-backdrop-filter: blur(25px) brightness(0.8);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(35px) brightness(0.7);
+            -webkit-backdrop-filter: blur(35px) brightness(0.7);
             border: 0.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 55px;
+            border-radius: 60px;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
-            /* Stabilized 3D movement */
-            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+            /* Ultra-smooth liquid transition */
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             transform-style: preserve-3d;
         }
 
-        .sanctuary.active { display: flex; animation: reveal 2.5s ease-out forwards; }
+        .sanctuary.active { display: flex; animation: soulReveal 2.8s ease-out forwards; }
 
-        @keyframes reveal {
-            from { opacity: 0; transform: scale(0.92) translateZ(-100px); filter: blur(15px); }
+        @keyframes soulReveal {
+            from { opacity: 0; transform: scale(0.9) translateZ(-200px); filter: blur(20px); }
             to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 14vw, 5.2rem);
+            font-size: clamp(3.5rem, 15vw, 5.5rem);
             color: var(--rose-gold);
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 15px var(--glow));
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 20px var(--soft-glow));
         }
 
         .whisper {
             font-family: 'Cinzel', serif;
             font-size: 0.65rem;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 5px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         /* --- THE INTIMATE PORTAL --- */
         .portal {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 35px;
+            border-radius: 40px;
             overflow: hidden;
             border: 0.5px solid rgba(255, 255, 255, 0.15);
-            margin: 20px 0;
+            margin: 25px 0;
             position: relative;
-            transform: translateZ(40px);
+            transform: translateZ(50px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
         }
 
         .slide {
             position: absolute;
             inset: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0;
-            transition: opacity 2s ease-in-out;
-            filter: contrast(1.1) brightness(0.9);
+            transition: opacity 2.5s ease-in-out;
+            filter: saturate(0.8) brightness(0.85);
         }
 
-        .slide.active { opacity: 1; animation: deepBreathe 12s infinite alternate ease-in-out; }
+        .slide.active { opacity: 1; animation: deepBreathe 15s infinite alternate ease-in-out; }
 
         @keyframes deepBreathe {
-            from { transform: scale(1); }
-            to { transform: scale(1.12) rotate(1deg); }
+            from { transform: scale(1.02); }
+            to { transform: scale(1.15) rotate(1.5deg); }
         }
 
-        /* --- THE TOUCH --- */
+        /* --- SEDUCTIVE ACTION --- */
         .btn-touch {
             background: none;
-            border: 0.5px solid rgba(255, 255, 255, 0.3);
-            padding: 16px 45px;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            padding: 18px 50px;
             color: #fff;
             font-family: 'Cinzel', serif;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             font-size: 0.75rem;
             border-radius: 100px;
-            margin-top: 25px;
+            margin-top: 30px;
             cursor: pointer;
-            transition: 0.5s;
+            transition: 0.6s;
             position: relative;
             overflow: hidden;
         }
@@ -131,49 +132,48 @@
         .btn-touch:hover {
             border-color: var(--rose-gold);
             background: rgba(229, 179, 163, 0.05);
-            box-shadow: 0 0 40px var(--glow);
+            box-shadow: 0 0 50px var(--soft-glow);
+            transform: translateZ(30px);
         }
 
-        /* Falling Gold Dust */
-        .dust {
+        /* Ethereal Petals */
+        .petal {
             position: fixed;
-            width: 2px; height: 2px;
-            background: var(--rose-gold);
-            border-radius: 50%;
             pointer-events: none;
             z-index: 10;
-            opacity: 0.5;
+            color: var(--rose-gold);
+            font-size: 14px;
+            opacity: 0.4;
             animation: fall 10s linear infinite;
         }
 
         @keyframes fall {
-            from { transform: translateY(-10vh); opacity: 0; }
-            50% { opacity: 0.5; }
-            to { transform: translateY(110vh); opacity: 0; }
+            from { transform: translateY(-10vh) rotate(0deg); }
+            to { transform: translateY(110vh) rotate(720deg); }
         }
     </style>
 </head>
 <body>
 
-    <div id="aura"></div>
+    <div id="nebula"></div>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
     <div id="intro" class="sanctuary active">
-        <div class="whisper">A Soul Destined</div>
+        <div class="whisper">A Destined Union</div>
         <h1>Taniya</h1>
-        <p style="font-weight: 100; font-size: 0.95rem; letter-spacing: 1px;">From that tour in Ernakulam... to the center of my heartbeat.</p>
-        <button class="btn-touch" onclick="unveil('journey')">Our Story</button>
+        <p style="font-weight: 100; font-size: 1rem; letter-spacing: 2px; opacity: 0.8;">From the moment our souls recognized each other... to the forever we are building.</p>
+        <button class="btn-touch" onclick="unveil('journey')">Our Secrets</button>
     </div>
 
     <div id="journey" class="sanctuary">
-        <div class="whisper">Timeless Moments</div>
+        <div class="whisper">Moments in Eternity</div>
         <h1>Our Vows</h1>
-        <p>14 September • The Night of Forever</p>
-        <p>13 October • The Reunion of Souls</p>
-        <button class="btn-touch" onclick="unveil('gallery')">Memories</button>
+        <p>14 September • The Night of the Promise</p>
+        <p>13 October • The Reunion of Hearts</p>
+        <button class="btn-touch" onclick="unveil('gallery')">Trace My Soul</button>
     </div>
 
     <div id="gallery" class="sanctuary">
@@ -189,18 +189,18 @@
     </div>
 
     <div id="proposal" class="sanctuary">
-        <div class="whisper">One Prayer</div>
-        <h1 style="font-size: 3rem;">Will You Be Mine Forever?</h1>
+        <div class="whisper">One Prayer. One Answer.</div>
+        <h1 style="font-size: 3.2rem;">Will You Be Mine Forever?</h1>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
             <button class="btn-touch" id="yesBtn" style="border-color: var(--rose-gold);">Always Yours</button>
-            <button class="btn-touch" id="noBtn" style="opacity: 0.2; border-color: #333;">Never</button>
+            <button class="btn-touch" id="noBtn" style="opacity: 0.15; border-color: #333;">Never</button>
         </div>
     </div>
 
     <div id="final" class="sanctuary">
         <h1>Infinity.</h1>
-        <p id="typewriter" style="font-style: italic; font-weight: 200; font-size: 1.1rem; line-height: 1.8;"></p>
-        <div class="whisper" style="margin-top: 30px;">I am lost in you.</div>
+        <p id="typewriter" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2; color: var(--rose-gold);"></p>
+        <div class="whisper" style="margin-top: 35px;">I am yours, entirely.</div>
     </div>
 
     <script>
@@ -211,12 +211,12 @@
             if(id === 'final') type();
         }
 
-        // --- STABILIZED INTERACTION ---
+        // --- STABILIZED LIQUID TILT ---
         const handleInteraction = (e) => {
             const active = document.querySelector('.sanctuary.active');
             if(active) {
-                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 65;
-                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 65;
+                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 75;
+                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 75;
                 active.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         };
@@ -224,20 +224,22 @@
         window.addEventListener('touchmove', handleInteraction);
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From that school tour in Ernakulam to the last breath I take, I am yours. Every heartbeat of mine belongs only to you.";
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, my soul is bound to yours. Every heartbeat I have is a whisper of your name.";
             let i = 0; const el = document.getElementById('typewriter');
-            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 55);
+            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
 
-        // Falling Gold Dust
+        // Falling Petals
         setInterval(() => {
-            const d = document.createElement('div');
-            d.className = 'dust';
-            d.style.left = Math.random() * 100 + 'vw';
-            d.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            document.body.appendChild(d);
-            setTimeout(() => d.remove(), 10000);
-        }, 300);
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.innerHTML = '🌸';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            p.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 10000);
+        }, 800);
 
         // Impossible No Button
         const no = document.getElementById('noBtn');
@@ -258,7 +260,7 @@
                 cur = (cur + 1) % slides.length;
                 slides[cur].classList.add('active');
             }
-        }, 4000);
+        }, 5000);
     </script>
 </body>
 </html>
