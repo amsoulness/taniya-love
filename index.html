@@ -2,184 +2,177 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity & Beyond | Taniya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TRANSCENDENT ASCENSION | Taniya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;900&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-glow: #ff4d6d;
-            --accent-gold: #ffb703;
+            --neon-pink: #ff0055;
+            --cyan: #00d4ff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none; /* Custom heart cursor */
-        }
-
+        /* Essential God-Mode Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
+            background: #000;
+            color: #fff;
             font-family: 'Montserrat', sans-serif;
             height: 100vh;
+            width: 100vw;
             overflow: hidden;
-            background: #0a0a0a; /* Dark cinematic base */
-            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
+            perspective: 2000px;
+            touch-action: none;
         }
 
-        /* --- CINEMATIC BACKGROUND --- */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #2d0a15 0%, #050505 100%);
-        }
+        canvas { position: fixed; inset: 0; z-index: -1; }
 
-        /* --- GLASS SECTIONS --- */
-        .section {
+        /* --- 3D INTERACTIVE MONOLITH --- */
+        .monolith {
             position: absolute;
             width: 90%;
-            max-width: 600px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
+            max-width: 480px;
+            aspect-ratio: 9/16;
+            max-height: 85vh;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
             display: none;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            z-index: 10;
+            box-shadow: 0 0 100px rgba(255, 0, 85, 0.15);
+            transform-style: preserve-3d;
+            transition: transform 0.1s linear;
         }
 
-        .section.active {
+        .monolith.active {
             display: flex;
-            animation: cinematicEntry 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: hyperJump 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
         }
 
-        @keyframes cinematicEntry {
-            from { opacity: 0; transform: translateY(50px) scale(0.9); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        @keyframes hyperJump {
+            0% { opacity: 0; transform: translateZ(-800px) rotateY(45deg); filter: blur(15px); }
+            100% { opacity: 1; transform: translateZ(0) rotateY(0deg); filter: blur(0); }
         }
+
+        /* 3D Depth Layers */
+        .layer { transform: translateZ(40px); transition: 0.3s; }
+        .layer-deep { transform: translateZ(80px); text-shadow: 0 10px 30px rgba(255, 0, 85, 0.5); }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
-            background: linear-gradient(to bottom, #fff, #ffb3c1);
+            font-size: clamp(3.2rem, 12vw, 5rem);
+            background: linear-gradient(180deg, #fff, var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.5));
+            margin-bottom: 10px;
         }
 
-        p {
-            font-weight: 200;
-            letter-spacing: 1px;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.8);
+        .cyber-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.6rem;
+            color: var(--cyan);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
         }
 
-        /* --- ENHANCED SLIDESHOW (KEN BURNS EFFECT) --- */
-        .cinema-frame {
-            position: relative;
+        /* --- THE CINEMATIC PORTAL --- */
+        .portal {
             width: 100%;
-            aspect-ratio: 3/4;
-            margin: 20px 0;
-            border-radius: 15px;
+            aspect-ratio: 4/5;
+            border-radius: 25px;
             overflow: hidden;
-            border: 0.5px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin: 20px 0;
+            position: relative;
         }
 
         .slide {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            transform: scale(1.3); /* Base scale for Ken Burns */
+            inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0;
+            transition: opacity 1.5s ease;
+            transform: scale(1.1);
         }
 
-        .slide.active {
-            opacity: 1;
-            animation: kenBurns 6s ease-in-out infinite alternate;
+        .slide.active { opacity: 1; animation: slideWarp 8s infinite alternate; }
+
+        @keyframes slideWarp {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2) rotate(1deg); }
         }
 
-        @keyframes kenBurns {
-            from { transform: scale(1.1) translate(0, 0); }
-            to { transform: scale(1.2) translate(-2%, -2%); }
-        }
-
-        /* --- ROMANTIC BUTTONS --- */
-        .btn-glow {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 15px 40px;
-            color: white;
+        /* --- LIQUID ACTION BUTTONS --- */
+        .btn-core {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--neon-pink);
+            padding: 18px 45px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
             letter-spacing: 3px;
-            border-radius: 50px;
-            margin-top: 30px;
-            transition: 0.5s;
-            position: relative;
-            overflow: hidden;
+            font-size: 0.8rem;
+            border-radius: 100px;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: 0.4s;
+            transform: translateZ(30px);
         }
 
-        .btn-glow:hover {
-            background: white;
-            color: #000;
-            box-shadow: 0 0 30px var(--primary-glow);
+        .btn-core:hover {
+            background: var(--neon-pink);
+            box-shadow: 0 0 50px var(--neon-pink);
+            transform: translateZ(60px) scale(1.05);
         }
 
-        /* --- CUSTOM CURSOR --- */
-        #cursor-heart {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-glow);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: screen;
-            transition: transform 0.1s ease;
+        /* Desktop Star Cursor */
+        #cursor-glow {
+            position: fixed; width: 25px; height: 25px;
+            border: 1px solid var(--cyan); border-radius: 50%;
+            pointer-events: none; z-index: 10000; transition: 0.08s linear;
         }
 
+        @media (max-width: 480px) {
+            .monolith { width: 92%; padding: 30px 15px; }
+            h1 { font-size: 3.5rem; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="cursor-heart"></div>
-    <div id="bg-canvas"></div>
+    <canvas id="main-canvas"></canvas>
+    <div id="cursor-glow"></div>
 
-    <audio id="music" loop>
+    <audio id="bg-music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="intro" class="section active">
-        <h1 style="font-size: 2.5rem;">To My Eternal Legend</h1>
-        <p>A story that started under the stars of Ernakulam...</p>
-        <button class="btn-glow" onclick="startExperience()">Enter Our Universe</button>
+    <div id="intro" class="monolith active">
+        <div class="cyber-tag layer">System: Eternal Legend</div>
+        <h1 class="layer-deep">Taniya</h1>
+        <p class="layer">An Ernakulam memory that rewrote my entire destiny.</p>
+        <button class="btn-core layer" onclick="next('journey')">Initiate</button>
     </div>
 
-    <div id="journey" class="section">
-        <h1>Taniya Elsa John</h1>
-        <p>Two dates that redefined my existence:</p>
-        <p style="color: var(--primary-glow); font-weight: 600; margin-top: 10px;">
-            14.09.25 • The Promise<br>
-            13.10.25 • The Reunion
-        </p>
-        <button class="btn-glow" onclick="showSection('gallery')">The Memories</button>
+    <div id="journey" class="monolith">
+        <div class="cyber-tag layer">Chronicle: 2025</div>
+        <h1 class="layer-deep">Our Story</h1>
+        <p class="layer">14.09 • The Vow<br>13.10 • The First Touch</p>
+        <button class="btn-core layer" onclick="next('gallery')">Archives</button>
     </div>
 
-    <div id="gallery" class="section">
-        <div class="cinema-frame">
+    <div id="gallery" class="monolith">
+        <div class="portal layer">
             <img class="slide active" src="photo1.jpg">
             <img class="slide" src="photo2.jpg">
             <img class="slide" src="photo3.jpg">
@@ -187,97 +180,136 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-glow" onclick="showSection('proposal')">The Question</button>
+        <button class="btn-core layer" onclick="next('proposal')">Ascend</button>
     </div>
 
-    <div id="proposal" class="section">
-        <h1>Will you walk this life with me?</h1>
-        <p>Every second, every heartbeat, forever.</p>
-        <div style="margin-top: 30px;">
-            <button class="btn-glow" id="yesBtn" style="border-color: #00ff88;">Yes, Forever</button>
-            <button class="btn-glow" id="noBtn" style="font-size: 10px; opacity: 0.5;">No</button>
+    <div id="proposal" class="monolith">
+        <div class="cyber-tag layer">Core Event Sync</div>
+        <h1 class="layer-deep">Be My Wife?</h1>
+        <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
+            <button class="btn-core layer" id="yesBtn">Yes, Forever</button>
+            <button class="btn-core layer" id="noBtn" style="border-color:#444; opacity:0.3;">No</button>
         </div>
     </div>
 
-    <div id="final" class="section">
-        <h1>You Are My Home</h1>
-        <p id="typewriter"></p>
+    <div id="final" class="monolith">
+        <h1 class="layer-deep">Infinity.</h1>
+        <p id="typewriter" class="layer" style="font-weight:200;"></p>
+        <div class="cyber-tag layer" style="margin-top:30px;">Status: Forever Found</div>
     </div>
 
     <script>
-        // Custom Cursor Logic
-        const cursor = document.getElementById('cursor-heart');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        const canvas = document.getElementById('main-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [], speed = 1.5, particles = [];
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = Array.from({length: 350}, () => ({
+                x: Math.random() * canvas.width - canvas.width/2,
+                y: Math.random() * canvas.height - canvas.height/2,
+                z: Math.random() * canvas.width
+            }));
+        }
+        init(); window.onresize = init;
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0,0,0,0.1)'; 
+            ctx.fillRect(0,0,canvas.width, canvas.height);
             
-            // Star trail effect
-            if(Math.random() > 0.8) createStar(e.clientX, e.clientY);
-        });
+            // Draw Starfield
+            stars.forEach(s => {
+                s.z -= speed;
+                if(s.z <= 0) s.z = canvas.width;
+                let x = s.x * (canvas.width/s.z) + canvas.width/2;
+                let y = s.y * (canvas.width/s.z) + canvas.height/2;
+                let r = (1 - s.z/canvas.width) * 2.5;
+                ctx.fillStyle = `rgba(0, 212, 255, ${1 - s.z/canvas.width})`;
+                ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+            });
 
-        function createStar(x, y) {
-            const star = document.createElement('div');
-            star.innerHTML = '✨';
-            star.style.position = 'fixed';
-            star.style.left = x + 'px';
-            star.style.top = y + 'px';
-            star.style.fontSize = '10px';
-            star.style.pointerEvents = 'none';
-            document.body.appendChild(star);
-            star.animate([
-                { opacity: 1, transform: 'translateY(0) scale(1)' },
-                { opacity: 0, transform: `translateY(${Math.random()*100}px) scale(0)` }
-            ], { duration: 1000 });
-            setTimeout(() => star.remove(), 1000);
+            // Draw Hearts (Only at final)
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy; p.alpha -= 0.01;
+                ctx.fillStyle = `rgba(255, 0, 85, ${p.alpha})`;
+                ctx.font = `${p.size}px serif`;
+                ctx.fillText('❤', p.x, p.y);
+                if(p.alpha <= 0) particles.splice(i, 1);
+            });
+
+            requestAnimationFrame(draw);
         }
+        draw();
 
-        // Slideshow Fix & Ken Burns
-        let currentSlide = 0;
-        const slides = document.querySelectorAll(".slide");
-        function runSlideshow() {
-            setInterval(() => {
-                slides[currentSlide].classList.remove("active");
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add("active");
-            }, 5000);
-        }
-
-        function showSection(id) {
-            document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
-            document.getElementById(id).classList.add("active");
-            if(id === 'gallery') runSlideshow();
-            if(id === 'final') startTypewriter();
-        }
-
-        function startExperience() {
-            showSection('journey');
-            document.getElementById('music').play();
-        }
-
-        // Typewriter Effect
-        function startTypewriter() {
-            const text = "From our +2 tour to our forever... I love you more than words can encode. You are my greatest discovery.";
-            let i = 0;
-            const element = document.getElementById("typewriter");
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, 50);
-                }
+        function next(id) {
+            document.querySelectorAll('.monolith').forEach(m => m.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(id === 'journey') document.getElementById('bg-music').play().catch(()=>{});
+            if(id === 'final') { 
+                speed = 30; // Warp Speed
+                triggerHearts();
+                type();
             }
-            type();
         }
 
-        // No Button Escape
-        const noBtn = document.getElementById("noBtn");
-        noBtn.addEventListener("mouseover", () => {
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = Math.random() * 80 + 'vw';
-            noBtn.style.top = Math.random() * 80 + 'vh';
+        // --- INTERACTIVE 3D PHYSICS ---
+        document.addEventListener('mousemove', (e) => {
+            const m = document.querySelector('.monolith.active');
+            if(m) {
+                let x = (window.innerWidth / 2 - e.clientX) / 20;
+                let y = (window.innerHeight / 2 - e.clientY) / 20;
+                m.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            }
+            const glow = document.getElementById('cursor-glow');
+            glow.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
         });
 
-        document.getElementById("yesBtn").onclick = () => showSection('final');
+        window.addEventListener('deviceorientation', (e) => {
+            const m = document.querySelector('.monolith.active');
+            if(m && e.beta) {
+                m.style.transform = `rotateY(${e.gamma / 2}deg) rotateX(${(e.beta - 45) / 2}deg)`;
+            }
+        });
+
+        function triggerHearts() {
+            for(let i=0; i<60; i++) {
+                particles.push({
+                    x: canvas.width/2, y: canvas.height/2,
+                    vx: (Math.random() - 0.5) * 15,
+                    vy: (Math.random() - 0.5) * 15,
+                    size: Math.random() * 30 + 10,
+                    alpha: 1
+                });
+            }
+        }
+
+        function type() {
+            const t = "Taniya, you're the AI to my ML, the variable I'll never change, and the love I'll always choose. From Ernakulam to forever.";
+            let i = 0; const el = document.getElementById('typewriter');
+            const itv = setInterval(() => { el.innerHTML += t[i]; i++; if(i === t.length) clearInterval(itv); }, 40);
+        }
+
+        // Escape No
+        const no = document.getElementById('noBtn');
+        const jump = () => {
+            no.style.position = 'fixed';
+            no.style.left = Math.random() * 80 + 'vw';
+            no.style.top = Math.random() * 80 + 'vh';
+        };
+        no.addEventListener('mouseover', jump); no.addEventListener('touchstart', jump);
+
+        document.getElementById('yesBtn').onclick = () => next('final');
+
+        // Slideshow
+        let cur = 0; const slides = document.querySelectorAll('.slide');
+        setInterval(() => {
+            if(document.getElementById('gallery').classList.contains('active')) {
+                slides[cur].classList.remove('active');
+                cur = (cur + 1) % slides.length;
+                slides[cur].classList.add('active');
+            }
+        }, 3500);
 
     </script>
 </body>
