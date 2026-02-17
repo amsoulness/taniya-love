@@ -3,210 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Taniya ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Infinity & Beyond | Taniya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary-glow: #ff4d6d;
+            --accent-gold: #ffb703;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Custom heart cursor */
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             height: 100vh;
             overflow: hidden;
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            background: #0a0a0a; /* Dark cinematic base */
             color: white;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Sections */
-        .section {
-            position: absolute;
+        /* --- CINEMATIC BACKGROUND --- */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #2d0a15 0%, #050505 100%);
+        }
+
+        /* --- GLASS SECTIONS --- */
+        .section {
+            position: absolute;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
             display: none;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
             text-align: center;
-            padding: 20px;
-            animation: fade 1.2s ease;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            z-index: 10;
         }
 
         .section.active {
             display: flex;
+            animation: cinematicEntry 1.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        @keyframes fade {
-            from { opacity: 0; transform: scale(.95); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes cinematicEntry {
+            from { opacity: 0; transform: translateY(50px) scale(0.9); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, .6);
+            font-size: 4rem;
+            background: linear-gradient(to bottom, #fff, #ffb3c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.5));
         }
 
         p {
-            max-width: 500px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            font-weight: 200;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
         }
 
-        /* Buttons */
-        button {
-            z-index: 10;
-            margin-top: 25px;
-            padding: 14px 28px;
-            font-size: 17px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-            transition: .3s;
-            animation: glow 2s infinite;
-        }
-
-        button:hover {
-            transform: scale(1.08);
-        }
-
-        #noBtn {
-            position: absolute;
-            transition: all 0.2s ease-out; /* Smooth escape */
-        }
-
-        /* Cinematic Photo Frame */
+        /* --- ENHANCED SLIDESHOW (KEN BURNS EFFECT) --- */
         .cinema-frame {
             position: relative;
-            width: 90%;
-            max-width: 380px;
+            width: 100%;
             aspect-ratio: 3/4;
-            border-radius: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,.5);
-            background: rgba(0,0,0,0.1); /* Fallback */
+            border: 0.5px solid rgba(255,255,255,0.2);
         }
 
-        /* The Slide Fix */
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;            /* Forces image to start at left edge */
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center; /* Centers the crop */
             opacity: 0;
-            transform: scale(1.1);
-            transition: opacity 1.5s ease, transform 4s ease;
+            transition: opacity 2s ease-in-out;
+            transform: scale(1.3); /* Base scale for Ken Burns */
         }
 
         .slide.active {
             opacity: 1;
-            transform: scale(1);
+            animation: kenBurns 6s ease-in-out infinite alternate;
         }
 
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, rgba(255,255,255,0.15), transparent 40%, transparent 60%, rgba(255,255,255,0.1));
-            pointer-events: none;
+        @keyframes kenBurns {
+            from { transform: scale(1.1) translate(0, 0); }
+            to { transform: scale(1.2) translate(-2%, -2%); }
         }
 
-        .dots {
-            position: absolute;
-            bottom: 15px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .5);
-            margin: 4px;
-            transition: .3s;
-        }
-
-        .dot.active {
-            background: white;
-            transform: scale(1.3);
-        }
-
-        /* Visual Effects */
-        .heart {
-            position: fixed;
+        /* --- ROMANTIC BUTTONS --- */
+        .btn-glow {
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 15px 40px;
             color: white;
-            animation: float 6s linear infinite;
-            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            margin-top: 30px;
+            transition: 0.5s;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes float {
-            from { transform: translateY(100vh); opacity: 1; }
-            to { transform: translateY(-10vh); opacity: 0; }
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 10px rgba(255, 255, 255, .3); }
-            50% { box-shadow: 0 0 25px rgba(255, 255, 255, .8); }
-            100% { box-shadow: 0 0 10px rgba(255, 255, 255, .3); }
-        }
-
-        .particle {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
+        .btn-glow:hover {
             background: white;
-            pointer-events: none;
+            color: #000;
+            box-shadow: 0 0 30px var(--primary-glow);
         }
 
-        body::after {
-            content: "";
+        /* --- CUSTOM CURSOR --- */
+        #cursor-heart {
             position: fixed;
-            inset: 0;
-            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5));
+            width: 20px;
+            height: 20px;
+            background: var(--primary-glow);
+            border-radius: 50%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 9999;
+            mix-blend-mode: screen;
+            transition: transform 0.1s ease;
         }
+
     </style>
 </head>
 <body>
+
+    <div id="cursor-heart"></div>
+    <div id="bg-canvas"></div>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
     <div id="intro" class="section active">
-        <h1>Taniya Elsa John ❤️</h1>
-        <p>From our +2 tour in Ernakulam… to the most beautiful love story of my life.</p>
-        <button onclick="startJourney()">Our Journey ✨</button>
+        <h1 style="font-size: 2.5rem;">To My Eternal Legend</h1>
+        <p>A story that started under the stars of Ernakulam...</p>
+        <button class="btn-glow" onclick="startExperience()">Enter Our Universe</button>
     </div>
 
     <div id="journey" class="section">
-        <h1>Our Story 💞</h1>
-        <p>We first met during our +2 tour in Ernakulam, Kerala.</p>
-        <p>Committed on <b>14 September 2025</b> ❤️</p>
-        <p>Met again on <b>13 October 2025</b>.</p>
-        <button onclick="showSection('gallery')">Memories ➜</button>
+        <h1>Taniya Elsa John</h1>
+        <p>Two dates that redefined my existence:</p>
+        <p style="color: var(--primary-glow); font-weight: 600; margin-top: 10px;">
+            14.09.25 • The Promise<br>
+            13.10.25 • The Reunion
+        </p>
+        <button class="btn-glow" onclick="showSection('gallery')">The Memories</button>
     </div>
 
     <div id="gallery" class="section">
-        <h1>Our Memories 📸</h1>
         <div class="cinema-frame">
             <img class="slide active" src="photo1.jpg">
             <img class="slide" src="photo2.jpg">
@@ -214,115 +186,99 @@
             <img class="slide" src="photo4.jpg">
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
-            <div class="overlay"></div>
-            <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
         </div>
-        <button onclick="showSection('proposal')">Next ➜</button>
+        <button class="btn-glow" onclick="showSection('proposal')">The Question</button>
     </div>
 
     <div id="proposal" class="section">
-        <h1>Will You Be My Wife? 💍</h1>
-        <div style="position: relative; width: 100%; height: 100px;">
-            <button id="yesBtn">Yes ❤️</button>
-            <button id="noBtn">No 😜</button>
+        <h1>Will you walk this life with me?</h1>
+        <p>Every second, every heartbeat, forever.</p>
+        <div style="margin-top: 30px;">
+            <button class="btn-glow" id="yesBtn" style="border-color: #00ff88;">Yes, Forever</button>
+            <button class="btn-glow" id="noBtn" style="font-size: 10px; opacity: 0.5;">No</button>
         </div>
     </div>
 
     <div id="final" class="section">
-        <h1>Thank You Babe ❤️</h1>
-        <p>You are my forever, my dream, my home, and the love I will choose in every lifetime.</p>
+        <h1>You Are My Home</h1>
+        <p id="typewriter"></p>
     </div>
 
     <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor-heart');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Star trail effect
+            if(Math.random() > 0.8) createStar(e.clientX, e.clientY);
+        });
+
+        function createStar(x, y) {
+            const star = document.createElement('div');
+            star.innerHTML = '✨';
+            star.style.position = 'fixed';
+            star.style.left = x + 'px';
+            star.style.top = y + 'px';
+            star.style.fontSize = '10px';
+            star.style.pointerEvents = 'none';
+            document.body.appendChild(star);
+            star.animate([
+                { opacity: 1, transform: 'translateY(0) scale(1)' },
+                { opacity: 0, transform: `translateY(${Math.random()*100}px) scale(0)` }
+            ], { duration: 1000 });
+            setTimeout(() => star.remove(), 1000);
+        }
+
+        // Slideshow Fix & Ken Burns
         let currentSlide = 0;
-        let slides = document.querySelectorAll(".slide");
-        let dots = document.querySelectorAll(".dot");
-        let slideshowStarted = false;
-
-        function showSlide(index) {
-            slides.forEach(s => s.classList.remove("active"));
-            dots.forEach(d => d.classList.remove("active"));
-            slides[index].classList.add("active");
-            dots[index].classList.add("active");
-        }
-
-        function startSlideshow() {
-            if (slideshowStarted) return;
-            slideshowStarted = true;
+        const slides = document.querySelectorAll(".slide");
+        function runSlideshow() {
             setInterval(() => {
+                slides[currentSlide].classList.remove("active");
                 currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            }, 3500);
+                slides[currentSlide].classList.add("active");
+            }, 5000);
         }
 
-        // Observer for Gallery
-        const gallery = document.getElementById("gallery");
-        const observer = new MutationObserver(() => {
-            if (gallery.classList.contains("active")) startSlideshow();
-        });
-        observer.observe(gallery, { attributes: true });
-
-        // Navigation
         function showSection(id) {
-            document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+            document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
             document.getElementById(id).classList.add("active");
+            if(id === 'gallery') runSlideshow();
+            if(id === 'final') startTypewriter();
         }
 
-        function startJourney() {
+        function startExperience() {
             showSection('journey');
-            document.getElementById("music").play().catch(() => {});
+            document.getElementById('music').play();
         }
 
-        // Moving NO Button Fix
+        // Typewriter Effect
+        function startTypewriter() {
+            const text = "From our +2 tour to our forever... I love you more than words can encode. You are my greatest discovery.";
+            let i = 0;
+            const element = document.getElementById("typewriter");
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
+        // No Button Escape
         const noBtn = document.getElementById("noBtn");
-        function moveNo() {
-            const x = Math.random() * (window.innerWidth - 120);
-            const y = Math.random() * (window.innerHeight - 80);
-            noBtn.style.left = x + "px";
-            noBtn.style.top = y + "px";
-        }
-        noBtn.addEventListener("mouseover", moveNo);
-        noBtn.addEventListener("click", moveNo);
-
-        // YES Button
-        document.getElementById("yesBtn").addEventListener("click", () => {
-            showSection("final");
-            fireworks();
+        noBtn.addEventListener("mouseover", () => {
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = Math.random() * 80 + 'vw';
+            noBtn.style.top = Math.random() * 80 + 'vh';
         });
 
-        // Background Effects
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }, 350);
+        document.getElementById("yesBtn").onclick = () => showSection('final');
 
-        function fireworks() {
-            for (let i = 0; i < 50; i++) {
-                let p = document.createElement("div");
-                p.className = "particle";
-                let angle = Math.random() * 360;
-                let distance = Math.random() * 300;
-                p.style.left = "50%"; p.style.top = "50%";
-                document.body.appendChild(p);
-                p.animate([
-                    { transform: "translate(0,0)", opacity: 1 },
-                    { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0 }
-                ], { duration: 1500 });
-                setTimeout(() => p.remove(), 1500);
-            }
-        }
     </script>
 </body>
 </html>
