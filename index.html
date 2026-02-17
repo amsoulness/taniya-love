@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Taniya ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+height:100vh;
+overflow:hidden;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+color:white;
+}
+
+/* Sections */
+
+.section{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+animation:fade 1.2s ease;
+}
+
+.section.active{
+display:flex;
+}
+
+@keyframes fade{
+from{opacity:0;transform:scale(.95);}
+to{opacity:1;transform:scale(1);}
+}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:3rem;
+margin-bottom:15px;
+text-shadow:0 0 20px rgba(255,255,255,.6);
+}
+
+p{
+max-width:500px;
+font-size:1.1rem;
+line-height:1.6;
+}
+
+/* Buttons */
+
+button{
+margin-top:25px;
+padding:14px 28px;
+font-size:17px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+background:rgba(255,255,255,0.15);
+color:white;
+backdrop-filter:blur(10px);
+box-shadow:0 0 20px rgba(255,255,255,0.4);
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+}
+
+#noBtn{
+position:absolute;
+}
+
+/* Gallery */
+
+.gallery{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:10px;
+}
+
+.gallery img{
+height:220px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.4);
+}
+
+/* Hearts */
+
+.heart{
+position:fixed;
+color:white;
+animation:float 6s linear infinite;
+pointer-events:none;
+}
+
+@keyframes float{
+from{transform:translateY(100vh);opacity:1;}
+to{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Firework particles */
+
+.particle{
+position:fixed;
+width:6px;
+height:6px;
+border-radius:50%;
+background:white;
+pointer-events:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="blue.mp3" type="audio/mpeg">
+</audio>
+
+<!-- INTRO -->
+<div id="intro" class="section active">
+
+<h1>Taniya Elsa John ❤️</h1>
+
+<p>
+From our +2 tour in Ernakulam…  
+to the most beautiful love story of my life.
+</p>
+
+<button onclick="startJourney()">Our Journey ✨</button>
+
+</div>
+
+
+<!-- JOURNEY -->
+<div id="journey" class="section">
+
+<h1>Our Story 💞</h1>
+
+<p>
+We first met during our +2 tour in Ernakulam, Kerala, India.  
+A moment destiny quietly wrote for us.
+</p>
+
+<p>
+We committed on <b>14 September 2025</b> ❤️  
+And met again for the first time after committing on  
+<b>13 October 2025</b>.
+</p>
+
+<button onclick="showSection('gallery')">Memories ➜</button>
+
+</div>
+
+
+<!-- GALLERY -->
+<div id="gallery" class="section">
+
+<h1>Our Memories 📸</h1>
+
+<div class="gallery">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
+<img src="photo5.jpg">
+<img src="photo6.jpg">
+</div>
+
+<button onclick="showSection('proposal')">Next ➜</button>
+
+</div>
+
+
+<!-- PROPOSAL -->
+<div id="proposal" class="section">
+
+<h1>Will You Be My Wife? 💍</h1>
+
+<button id="yesBtn">Yes ❤️</button>
+<button id="noBtn">No 😜</button>
+
+</div>
+
+
+<!-- FINAL -->
+<div id="final" class="section">
+
+<h1>Thank You Babe ❤️</h1>
+
+<p>
+You are my forever,  
+my dream,  
+my home,  
+and the love I will choose in every lifetime.
+</p>
+
+</div>
+
+
+<script>
+
+/* Section Navigation */
+
+function showSection(id){
+
+document.querySelectorAll(".section").forEach(sec=>{
+sec.classList.remove("active");
+});
+
+document.getElementById(id).classList.add("active");
+
+window.scrollTo(0,0);
+}
+
+
+/* Start Journey + Music */
+
+function startJourney(){
+
+showSection('journey');
+
+const music=document.getElementById("music");
+
+if(music){
+music.play().catch(()=>{});
+}
+
+}
+
+
+/* Moving NO Button */
+
+const noBtn=document.getElementById("noBtn");
+
+function moveNo(){
+
+const x=Math.random()*(window.innerWidth-100);
+const y=Math.random()*(window.innerHeight-60);
+
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+
+if(noBtn){
+
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("click",moveNo);
+
+}
+
+
+/* YES Button */
+
+const yesBtn=document.getElementById("yesBtn");
+
+if(yesBtn){
+
+yesBtn.addEventListener("click",()=>{
+
+showSection("final");
+fireworks();
+
+});
+
+}
+
+
+/* Floating Hearts */
+
+setInterval(()=>{
+
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+10)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),6000);
+
+},350);
+
+
+/* Fireworks */
+
+function fireworks(){
+
+for(let i=0;i<40;i++){
+
+let p=document.createElement("div");
+p.className="particle";
+
+let angle=Math.random()*360;
+let distance=Math.random()*250;
+
+p.style.left="50%";
+p.style.top="50%";
+
+document.body.appendChild(p);
+
+p.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${Math.cos(angle)*distance}px,${Math.sin(angle)*distance}px)`,opacity:0}
+],{duration:1200});
+
+setTimeout(()=>p.remove(),1200);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
