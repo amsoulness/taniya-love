@@ -29,13 +29,12 @@
             touch-action: none;
         }
 
-        /* --- DYNAMIC AMBIENT LIGHTING --- */
-        #dynamic-bg {
+        /* --- INTERACTIVE PARTICLE CANVAS --- */
+        #particle-canvas {
             position: fixed;
-            inset: -15%;
-            z-index: -2;
-            background: radial-gradient(circle at center, #1a080e 0%, #050103 100%);
-            transition: background 3s ease;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* --- THE 3D GLASS STACK --- */
@@ -45,8 +44,8 @@
             max-width: 450px;
             aspect-ratio: 9/16;
             background: var(--glass);
-            backdrop-filter: blur(45px) saturate(200%);
-            -webkit-backdrop-filter: blur(45px) saturate(200%);
+            backdrop-filter: blur(45px) saturate(220%);
+            -webkit-backdrop-filter: blur(45px) saturate(220%);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 60px;
             display: none;
@@ -57,7 +56,7 @@
             text-align: center;
             box-shadow: 0 50px 100px rgba(0,0,0,0.9);
             transform-style: preserve-3d;
-            transition: transform 0.12s ease-out; 
+            transition: transform 0.15s ease-out; 
         }
 
         .prism-card.active { display: flex; animation: soulReveal 2.5s ease-out forwards; }
@@ -67,7 +66,7 @@
             to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
         }
 
-        /* Physical 3D Depth Layers */
+        /* 3D Depth Layers */
         .layer-mid { transform: translateZ(50px); }
         .layer-high { transform: translateZ(110px); text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
 
@@ -115,7 +114,7 @@
             to { transform: scale(1.15) rotate(1deg); }
         }
 
-        /* --- INTIMATE ACTION --- */
+        /* --- ACTION BUTTON --- */
         .btn-touch {
             background: rgba(255, 255, 255, 0.05);
             border: 0.5px solid var(--rose);
@@ -140,7 +139,7 @@
 </head>
 <body>
 
-    <div id="dynamic-bg"></div>
+    <canvas id="particle-canvas"></canvas>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
@@ -154,10 +153,10 @@
     </div>
 
     <div id="journey" class="prism-card">
-        <div class="label layer-mid">Timeless Moments</div>
-        <h1 class="layer-high">The Promise</h1>
-        <p class="layer-mid">14 September • Two Hearts as One</p>
-        <p class="layer-mid">13 October • The Reunion</p>
+        <div class="label layer-mid">Timeline Archives</div>
+        <h1 class="layer-high">Our Story</h1>
+        <p class="layer-mid">14 September • The Promise of Hearts</p>
+        <p class="layer-mid">13 October • The Reunion of Souls</p>
         <button class="btn-touch" onclick="navigate('gallery')">Archives</button>
     </div>
 
@@ -185,14 +184,76 @@
     <div id="final" class="prism-card">
         <h1 class="layer-high">Infinity.</h1>
         <p id="typewriter" class="layer-mid" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2;"></p>
-        <div class="label layer-mid" style="margin-top: 30px;">Forever Bound</div>
+        <div class="label layer-mid" style="margin-top: 30px;">I am yours, entirely.</div>
     </div>
 
     <script>
+        // --- PARTICLE ENGINE ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const mouse = { x: null, y: null };
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = 'rgba(229, 179, 163, 0.5)';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+
+                // Reaction to mouse/touch
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < 100) {
+                    this.x -= dx/20;
+                    this.y -= dy/20;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 150; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+        window.addEventListener('resize', initParticles);
+
+        // --- NAVIGATION & INTERACTION ---
         function navigate(id) {
             document.querySelectorAll('.prism-card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            
             if(id === 'journey') document.getElementById('music').play().catch(()=>{});
             if(id === 'proposal') startHeartbeat();
             if(id === 'final') type();
@@ -200,21 +261,29 @@
 
         const handleInteraction = (e) => {
             const card = document.querySelector('.prism-card.active');
+            const cx = e.touches ? e.touches[0].clientX : e.clientX;
+            const cy = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            // Update particles focus
+            mouse.x = cx;
+            mouse.y = cy;
+
             if(card) {
-                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 75;
-                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 75;
+                let x = (window.innerWidth / 2 - cx) / 75;
+                let y = (window.innerHeight / 2 - cy) / 75;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         };
+
         window.addEventListener('mousemove', handleInteraction);
         window.addEventListener('touchmove', handleInteraction);
 
-        // --- HAPTIC HEARTBEAT ENGINE ---
+        // --- HAPTIC HEARTBEAT ---
         function startHeartbeat() {
             if ("vibrate" in navigator) {
                 const beat = setInterval(() => {
                     if(document.getElementById('proposal').classList.contains('active')) {
-                        navigator.vibrate([100, 50, 100]); // Thump-thump
+                        navigator.vibrate([100, 50, 100]);
                     } else {
                         clearInterval(beat);
                     }
@@ -223,7 +292,7 @@
         }
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, my soul is bound to yours. I love you, forever.";
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. My soul is bound to yours, and every heartbeat is a promise. I am yours, entirely.";
             let i = 0; const el = document.getElementById('typewriter');
             const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
