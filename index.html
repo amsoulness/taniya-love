@@ -181,88 +181,37 @@ My everything.
 
 <script>
 
-function showSection(id){
+function showSection(id) {
 
-document.querySelectorAll(".section").forEach(sec=>{
-sec.style.display="none";
+  // Hide all sections
+  document.querySelectorAll(".section").forEach(section => {
+    section.style.display = "none";
+  });
+
+  // Show selected section
+  document.getElementById(id).style.display = "flex";
+
+  // Scroll to top (mobile friendly)
+  window.scrollTo(0, 0);
+}
+
+
+// Intro button click
+document.addEventListener("DOMContentLoaded", function () {
+
+  const journeyBtn = document.getElementById("journeyBtn");
+
+  if (journeyBtn) {
+    journeyBtn.addEventListener("click", function () {
+      showSection("journey");
+    });
+  }
+
 });
-
-document.getElementById(id).style.display="flex";
-
-window.scrollTo(0,0);
-}
-
-
-// Moving No Button
-const noBtn=document.getElementById("noBtn");
-
-if(noBtn){
-noBtn.addEventListener("mouseover",moveNo);
-noBtn.addEventListener("click",moveNo);
-}
-
-function moveNo(){
-const x=Math.random()*(window.innerWidth-100);
-const y=Math.random()*(window.innerHeight-50);
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-}
-
-
-// Yes Button
-const yesBtn=document.getElementById("yesBtn");
-
-if(yesBtn){
-yesBtn.addEventListener("click",()=>{
-showSection("final");
-fireworks();
-});
-}
-
-
-// Hearts
-setInterval(()=>{
-const heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(Math.random()*20+10)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},300);
-
-
-// Fireworks
-function fireworks(){
-
-for(let i=0;i<30;i++){
-
-let div=document.createElement("div");
-div.style.position="fixed";
-div.style.left="50%";
-div.style.top="50%";
-div.style.width="6px";
-div.style.height="6px";
-div.style.background="white";
-div.style.borderRadius="50%";
-
-let angle=Math.random()*360;
-let distance=Math.random()*200;
-
-div.animate([
-{transform:"translate(0,0)",opacity:1},
-{transform:`translate(${Math.cos(angle)*distance}px,${Math.sin(angle)*distance}px)`,opacity:0}
-],{duration:1000});
-
-document.body.appendChild(div);
-
-setTimeout(()=>div.remove(),1000);
-
-}
-
-}
 
 </script>
 
+
 </body>
 </html>
+
