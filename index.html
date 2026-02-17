@@ -29,7 +29,7 @@
             touch-action: none;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- BACKGROUND PARTICLES --- */
         #particle-canvas {
             position: fixed;
             inset: 0;
@@ -56,21 +56,22 @@
             text-align: center;
             box-shadow: 0 40px 120px rgba(0,0,0,0.9);
             transform-style: preserve-3d;
-            transition: transform 0.2s ease-out; /* Slightly slower for stability */
+            /* Smooth interaction return */
+            transition: transform 0.1s ease-out;
         }
 
         .sanctuary.active { display: flex; animation: reveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @keyframes reveal {
-            from { opacity: 0; transform: scale(0.9) translateZ(-500px); }
+            from { opacity: 0; transform: scale(0.85) translateZ(-500px); }
             to { opacity: 1; transform: scale(1) translateZ(0); }
         }
 
         h1 { font-family: 'Italianno', cursive; font-size: clamp(3.5rem, 15vw, 5rem); color: var(--rose); margin-bottom: 5px; }
         .label { font-family: 'Montserrat', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.4); letter-spacing: 7px; text-transform: uppercase; margin-bottom: 30px; }
-        .script-quote { font-family: 'Italianno', cursive; font-size: 2.2rem; color: var(--rose); line-height: 1.2; }
+        .script-quote { font-family: 'Italianno', cursive; font-size: 2rem; color: var(--rose); line-height: 1.2; }
 
-        /* --- CINEMATIC PHOTO PORTAL --- */
+        /* --- SMOOTH PORTAL & SLIDER --- */
         .portal {
             width: 100%;
             aspect-ratio: 4/5;
@@ -80,7 +81,8 @@
             margin: 20px 0;
             position: relative;
             transform: translateZ(60px);
-            background: #000;
+            /* Helps GPU acceleration */
+            backface-visibility: hidden;
         }
 
         .slide {
@@ -88,20 +90,14 @@
             inset: 0; width: 100%; height: 100%;
             object-fit: cover;
             opacity: 0;
-            /* Using transform3d for hardware acceleration and scale for cinematic zoom */
-            transform: scale(1.15) translate3d(0,0,0);
-            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Hardware acceleration */
             will-change: opacity, transform;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
         }
 
-        /* When active, the photo settles down to original size slowly */
-        .slide.active { 
-            opacity: 1; 
-            transform: scale(1) translate3d(0,0,0);
-        }
+        .slide.active { opacity: 1; transform: scale(1.05); }
 
-        /* --- BUTTONS --- */
         .btn-love {
             background: rgba(255, 255, 255, 0.03);
             border: 0.5px solid var(--rose);
@@ -111,22 +107,20 @@
             cursor: pointer;
             transition: 0.4s;
             transform: translateZ(80px);
-            font-size: 0.7rem;
-            letter-spacing: 3px;
         }
 
         .btn-love:hover { background: var(--rose); box-shadow: 0 0 30px var(--rose); }
 
         #envelope-gate { position: fixed; inset: 0; background: var(--midnight); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 1.8s ease; }
-        .seal { width: 100px; height: 100px; border: 1px solid var(--rose); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; animation: pulsate 2s infinite; }
-        @keyframes pulsate { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); box-shadow: 0 0 20px var(--rose); } }
+        .seal { width: 100px; height: 100px; border: 1px solid #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; animation: pulsate 2s infinite; }
+        @keyframes pulsate { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
     </style>
 </head>
 <body>
 
     <div id="envelope-gate">
         <div class="seal" onclick="openMsg()"><span>❤</span></div>
-        <p style="margin-top: 20px; font-family: 'Italianno', cursive; font-size: 2rem; color: var(--rose);">For Taniya</p>
+        <p style="margin-top: 20px; font-family: 'Italianno', cursive; font-size: 1.8rem; opacity: 0.5;">Tap to open</p>
     </div>
 
     <canvas id="particle-canvas"></canvas>
@@ -138,8 +132,8 @@
     <div id="intro" class="sanctuary active">
         <div class="label">Act I</div>
         <h1>Taniya</h1>
-        <p class="script-quote">My Forever Dream</p>
-        <button class="btn-love" onclick="seek('journey')">Open Story</button>
+        <p class="script-quote">My Sweetest Melody</p>
+        <button class="btn-love" onclick="seek('journey')">Next</button>
     </div>
 
     <div id="journey" class="sanctuary">
@@ -158,17 +152,17 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-love" onclick="seek('proposal')">Ascend</button>
+        <button class="btn-love" onclick="seek('proposal')">The End?</button>
     </div>
 
     <div id="proposal" class="sanctuary">
         <h1>Be Mine?</h1>
-        <button class="btn-love" onclick="seek('final')">Always Yours</button>
+        <button class="btn-love" onclick="seek('final')">Always</button>
     </div>
 
     <div id="final" class="sanctuary">
         <h1>Infinity.</h1>
-        <p id="typewriter" class="script-quote" style="font-size: 1.8rem;"></p>
+        <p id="typewriter" class="script-quote"></p>
     </div>
 
     <script>
@@ -178,18 +172,19 @@
 
         function openMsg() {
             document.getElementById('envelope-gate').style.opacity = '0';
-            setTimeout(() => document.getElementById('envelope-gate').style.display = 'none', 1800);
+            document.getElementById('envelope-gate').style.pointerEvents = 'none';
             document.getElementById('music').play().catch(()=>{});
         }
 
+        // Optimized Particles
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            elements = Array.from({length: 50}, () => ({
+            elements = Array.from({length: 40}, () => ({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                vy: Math.random() * 0.4 + 0.1,
-                o: Math.random() * 0.4
+                vy: Math.random() * 0.5 + 0.2,
+                o: Math.random() * 0.5
             }));
         }
         init();
@@ -200,7 +195,7 @@
                 e.y += e.vy;
                 if(e.y > canvas.height) e.y = -10;
                 ctx.fillStyle = `rgba(255,255,255,${e.o})`;
-                ctx.beginPath(); ctx.arc(e.x, e.y, 1.5, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.arc(e.x, e.y, 2, 0, Math.PI*2); ctx.fill();
             });
             requestAnimationFrame(animate);
         }
@@ -213,39 +208,31 @@
             if(id === 'proposal' && "vibrate" in navigator) navigator.vibrate([100,50,100]);
         }
 
-        // --- STABILIZED 3D LIQUID INTERACTION ---
+        // Liquid Interaction
         window.addEventListener('mousemove', (e) => {
             const card = document.querySelector('.sanctuary.active');
             if(card) {
-                let x = (window.innerWidth / 2 - e.clientX) / 100;
-                let y = (window.innerHeight / 2 - e.clientY) / 100;
+                let x = (window.innerWidth / 2 - e.clientX) / 90;
+                let y = (window.innerHeight / 2 - e.clientY) / 90;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         });
 
-        // --- CINEMATIC KEN BURNS SLIDER ---
+        // --- THE FIXED SMOOTH SLIDER ---
         let cur = 0;
         const slides = document.querySelectorAll('.slide');
         setInterval(() => {
             if(document.getElementById('gallery').classList.contains('active')) {
-                // Reset the transform of the outgoing slide for its next turn
-                slides[cur].style.transition = 'opacity 2s ease, transform 0s';
                 slides[cur].classList.remove('active');
-                
                 cur = (cur + 1) % slides.length;
-                
-                // Allow a tiny delay to reset transform before starting the next zoom
-                setTimeout(() => {
-                    slides[cur].style.transition = 'opacity 2s cubic-bezier(0.4, 0, 0.2, 1), transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                    slides[cur].classList.add('active');
-                }, 50);
+                slides[cur].classList.add('active');
             }
-        }, 5000); // 5 seconds gives the 6-second zoom plenty of time to look smooth
+        }, 3500); // 3.5 seconds for a smooth, unhurried pace
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. Forever yours.";
+            const msg = "Taniya... you are my forever. I love you beyond words.";
             let i = 0; const el = document.getElementById('typewriter');
-            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
+            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 70);
         }
     </script>
 </body>
