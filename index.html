@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Infinity | Taniya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&family=Monsieur+La+Doulaise&family=Montserrat:wght@100;300&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --rose: #e5b3a3;
+            --crimson: #4a0404;
             --midnight: #050103;
             --glass: rgba(255, 255, 255, 0.02);
         }
@@ -29,15 +30,16 @@
             touch-action: none;
         }
 
-        /* --- INTERACTIVE PARTICLE CANVAS --- */
+        /* --- ROMANTIC PARTICLE CANVAS --- */
         #particle-canvas {
             position: fixed;
             inset: 0;
             z-index: -1;
             pointer-events: none;
+            background: radial-gradient(circle at center, #1a080e 0%, #050103 100%);
         }
 
-        /* --- THE 3D GLASS STACK --- */
+        /* --- THE 3D GLASS SANCTUARY --- */
         .prism-card {
             position: absolute;
             width: 92vw;
@@ -68,23 +70,30 @@
 
         /* 3D Depth Layers */
         .layer-mid { transform: translateZ(50px); }
-        .layer-high { transform: translateZ(110px); text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .layer-high { transform: translateZ(110px); }
 
         h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(3.5rem, 15vw, 5.5rem);
+            font-family: 'Monsieur La Doulaise', cursive;
+            font-size: clamp(4rem, 18vw, 6.5rem);
             color: var(--rose);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 20px rgba(229, 179, 163, 0.4));
+            margin-bottom: 5px;
+            filter: drop-shadow(0 0 15px rgba(229, 179, 163, 0.4));
+        }
+
+        .romantic-script {
+            font-family: 'Italianno', cursive;
+            font-size: 2.2rem;
+            color: var(--rose);
+            opacity: 0.9;
         }
 
         .label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
             color: rgba(255,255,255,0.4);
-            letter-spacing: 7px;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
 
         /* --- THE CINEMATIC PORTAL --- */
@@ -114,17 +123,17 @@
             to { transform: scale(1.15) rotate(1deg); }
         }
 
-        /* --- ACTION BUTTON --- */
+        /* --- SOFT INTERACTION BUTTON --- */
         .btn-touch {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             border: 0.5px solid var(--rose);
-            padding: 18px 45px;
+            padding: 16px 45px;
             color: #fff;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 5px;
-            font-size: 0.8rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 4px;
+            font-size: 0.75rem;
             border-radius: 100px;
-            margin-top: 30px;
+            margin-top: 25px;
             cursor: pointer;
             transition: 0.5s;
             transform: translateZ(60px);
@@ -146,18 +155,19 @@
     </audio>
 
     <div id="intro" class="prism-card active">
-        <div class="label layer-mid">A Soul Recognized</div>
+        <div class="label layer-mid">The Awakening</div>
         <h1 class="layer-high">Taniya</h1>
-        <p class="layer-mid" style="font-weight: 100; letter-spacing: 2px; opacity: 0.7;">From the moment our paths crossed... to the forever we are building together.</p>
-        <button class="btn-touch" onclick="navigate('journey')">Our Secrets</button>
+        <p class="romantic-script layer-mid">My Soul’s Reflection</p>
+        <p style="font-weight: 100; letter-spacing: 1px; opacity: 0.7; margin-top: 10px;">In a world of shadows, you are my only light.</p>
+        <button class="btn-touch" onclick="navigate('journey')">Trace My Heart</button>
     </div>
 
     <div id="journey" class="prism-card">
-        <div class="label layer-mid">Timeline Archives</div>
-        <h1 class="layer-high">Our Story</h1>
-        <p class="layer-mid">14 September • The Promise of Hearts</p>
-        <p class="layer-mid">13 October • The Reunion of Souls</p>
-        <button class="btn-touch" onclick="navigate('gallery')">Archives</button>
+        <div class="label layer-mid">Destiny’s Ink</div>
+        <h1 class="layer-high" style="font-size: 4rem;">Written in Stars</h1>
+        <p class="romantic-script">14 September • The Vow</p>
+        <p class="romantic-script">13 October • The Reunion</p>
+        <button class="btn-touch" onclick="navigate('gallery')">Archives of Us</button>
     </div>
 
     <div id="gallery" class="prism-card">
@@ -169,26 +179,26 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-touch" onclick="navigate('proposal')">Ascend</button>
+        <button class="btn-touch" onclick="navigate('proposal')">The Final Secret</button>
     </div>
 
     <div id="proposal" class="prism-card">
-        <div class="label layer-mid">One Choice</div>
-        <h1 class="layer-high" style="font-size: 3rem;">Be My Wife?</h1>
+        <div class="label layer-mid">My Forever Prayer</div>
+        <h1 class="layer-high" style="font-size: 4.5rem;">Be My Wife?</h1>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-            <button class="btn-touch" id="yesBtn">Always Yours</button>
-            <button class="btn-touch" id="noBtn" style="opacity: 0.1; border-color: #444;">No</button>
+            <button class="btn-touch" id="yesBtn">Yes, Until Eternity Ends</button>
+            <button class="btn-touch" id="noBtn" style="opacity: 0.05; border-color: #444;">No</button>
         </div>
     </div>
 
     <div id="final" class="prism-card">
         <h1 class="layer-high">Infinity.</h1>
-        <p id="typewriter" class="layer-mid" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2;"></p>
-        <div class="label layer-mid" style="margin-top: 30px;">I am yours, entirely.</div>
+        <p id="typewriter" class="layer-mid" style="font-family: 'Italianno', cursive; font-size: 2.2rem; line-height: 1.4;"></p>
+        <div class="label layer-mid" style="margin-top: 30px;">Lost in you, Forever.</div>
     </div>
 
     <script>
-        // --- PARTICLE ENGINE ---
+        // --- ROMANTIC PARTICLE ENGINE (PETALS & HEARTS) ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -198,33 +208,42 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.color = 'rgba(229, 179, 163, 0.5)';
+                this.size = Math.random() * 15 + 5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 1 + 0.5; // Falling downward
+                this.rotation = Math.random() * 360;
+                this.type = Math.random() > 0.5 ? 'petal' : 'heart';
             }
             update() {
-                this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-
-                // Reaction to mouse/touch
+                this.rotation += 0.5;
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+                // Subtle wind effect from touch
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const distance = Math.sqrt(dx*dx + dy*dy);
-                if (distance < 100) {
-                    this.x -= dx/20;
-                    this.y -= dy/20;
+                if (distance < 120) {
+                    this.x -= dx/30;
                 }
             }
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = 'rgba(229, 179, 163, 0.3)';
+                if (this.type === 'heart') {
+                    ctx.font = `${this.size}px serif`;
+                    ctx.fillText('❤', 0, 0);
+                } else {
+                    // Draw a soft petal shape
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.size/2, this.size, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
+                ctx.restore();
             }
         }
 
@@ -232,7 +251,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            for (let i = 0; i < 150; i++) {
+            for (let i = 0; i < 60; i++) {
                 particles.push(new Particle());
             }
         }
@@ -248,7 +267,6 @@
 
         initParticles();
         animateParticles();
-        window.addEventListener('resize', initParticles);
 
         // --- NAVIGATION & INTERACTION ---
         function navigate(id) {
@@ -263,47 +281,38 @@
             const card = document.querySelector('.prism-card.active');
             const cx = e.touches ? e.touches[0].clientX : e.clientX;
             const cy = e.touches ? e.touches[0].clientY : e.clientY;
-            
-            // Update particles focus
-            mouse.x = cx;
-            mouse.y = cy;
-
+            mouse.x = cx; mouse.y = cy;
             if(card) {
-                let x = (window.innerWidth / 2 - cx) / 75;
-                let y = (window.innerHeight / 2 - cy) / 75;
+                let x = (window.innerWidth / 2 - cx) / 80;
+                let y = (window.innerHeight / 2 - cy) / 80;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         };
-
         window.addEventListener('mousemove', handleInteraction);
         window.addEventListener('touchmove', handleInteraction);
 
-        // --- HAPTIC HEARTBEAT ---
         function startHeartbeat() {
             if ("vibrate" in navigator) {
                 const beat = setInterval(() => {
                     if(document.getElementById('proposal').classList.contains('active')) {
-                        navigator.vibrate([100, 50, 100]);
-                    } else {
-                        clearInterval(beat);
-                    }
-                }, 1400);
+                        navigator.vibrate([120, 60, 120]);
+                    } else { clearInterval(beat); }
+                }, 1500);
             }
         }
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. My soul is bound to yours, and every heartbeat is a promise. I am yours, entirely.";
+            const msg = "Taniya Elsa John... you are the dream my heart finally reached. My soul is forever bound to yours, and every heartbeat is a whisper of my devotion. I am yours, entirely.";
             let i = 0; const el = document.getElementById('typewriter');
             const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
 
         const no = document.getElementById('noBtn');
-        const jump = () => {
+        no.onmouseover = () => {
             no.style.position = 'fixed';
             no.style.left = Math.random() * 80 + 'vw';
             no.style.top = Math.random() * 80 + 'vh';
         };
-        no.onmouseover = jump; no.ontouchstart = jump;
 
         document.getElementById('yesBtn').onclick = () => navigate('final');
 
