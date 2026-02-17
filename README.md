@@ -2,7 +2,7 @@
 
 A digital memory box and a special proposal page dedicated to the love of my life, **Taniya**. 
 
-### ✨ [Click Here to Open the Surprise 💌](https://your-username.github.io/your-repo-name/)
+### ✨ [Click Here to Open the Surprise 💌](https://amsoulness.github.io/taniya-love/)
 
 ---
 
