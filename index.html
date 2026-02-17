@@ -11,6 +11,7 @@
             --rose: #e5b3a3;
             --midnight: #050103;
             --glass: rgba(255, 255, 255, 0.03);
+            --white-glow: rgba(255, 255, 255, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -29,7 +30,42 @@
             touch-action: none;
         }
 
-        /* --- BACKGROUND PARTICLES --- */
+        /* --- THE ENVELOPE GATE --- */
+        #envelope-gate {
+            position: fixed;
+            inset: 0;
+            background: var(--midnight);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wax-seal {
+            width: 110px;
+            height: 110px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: pulseSeal 2s infinite ease-in-out;
+            transform-style: preserve-3d;
+        }
+
+        .wax-seal span { font-size: 2.2rem; color: #fff; }
+
+        @keyframes pulseSeal {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); }
+        }
+
+        /* --- WHITE CELESTIAL PARTICLE CANVAS --- */
         #particle-canvas {
             position: fixed;
             inset: 0;
@@ -56,71 +92,106 @@
             text-align: center;
             box-shadow: 0 40px 120px rgba(0,0,0,0.9);
             transform-style: preserve-3d;
-            /* Smooth interaction return */
-            transition: transform 0.1s ease-out;
+            transition: transform 0.15s ease-out;
         }
 
-        .sanctuary.active { display: flex; animation: reveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .sanctuary.active { display: flex; animation: reveal 2.8s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
 
         @keyframes reveal {
             from { opacity: 0; transform: scale(0.85) translateZ(-500px); }
             to { opacity: 1; transform: scale(1) translateZ(0); }
         }
 
-        h1 { font-family: 'Italianno', cursive; font-size: clamp(3.5rem, 15vw, 5rem); color: var(--rose); margin-bottom: 5px; }
-        .label { font-family: 'Montserrat', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.4); letter-spacing: 7px; text-transform: uppercase; margin-bottom: 30px; }
-        .script-quote { font-family: 'Italianno', cursive; font-size: 2rem; color: var(--rose); line-height: 1.2; }
+        h1 {
+            font-family: 'Italianno', cursive;
+            font-size: clamp(3.5rem, 15vw, 5rem);
+            color: var(--rose);
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
 
-        /* --- SMOOTH PORTAL & SLIDER --- */
-        .portal {
+        .label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .script-quote {
+            font-family: 'Italianno', cursive;
+            font-size: 2rem;
+            color: var(--rose);
+            line-height: 1.2;
+        }
+
+        #secret-memory {
+            position: absolute;
+            inset: 15%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            border-radius: 30px;
+            filter: grayscale(1) brightness(0.7);
+            transition: opacity 4s ease-in-out;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 80%);
+        }
+
+        .window {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 45px;
+            border-radius: 40px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.15);
             margin: 20px 0;
             position: relative;
             transform: translateZ(60px);
-            /* Helps GPU acceleration */
-            backface-visibility: hidden;
         }
 
         .slide {
             position: absolute;
             inset: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            /* Hardware acceleration */
-            will-change: opacity, transform;
-            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(1);
+            object-fit: cover; opacity: 0;
+            transition: opacity 2s ease;
         }
 
-        .slide.active { opacity: 1; transform: scale(1.05); }
+        .slide.active { opacity: 1; animation: softBreathe 12s infinite alternate; }
+
+        @keyframes softBreathe {
+            from { transform: scale(1); }
+            to { transform: scale(1.15) rotate(1deg); }
+        }
 
         .btn-love {
             background: rgba(255, 255, 255, 0.03);
             border: 0.5px solid var(--rose);
             padding: 16px 45px;
             color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 4px;
+            font-size: 0.75rem;
             border-radius: 100px;
+            margin-top: 30px;
             cursor: pointer;
-            transition: 0.4s;
+            transition: 0.6s;
             transform: translateZ(80px);
         }
 
-        .btn-love:hover { background: var(--rose); box-shadow: 0 0 30px var(--rose); }
-
-        #envelope-gate { position: fixed; inset: 0; background: var(--midnight); z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 1.8s ease; }
-        .seal { width: 100px; height: 100px; border: 1px solid #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; animation: pulsate 2s infinite; }
-        @keyframes pulsate { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .btn-love:hover {
+            background: var(--rose);
+            box-shadow: 0 0 40px var(--rose);
+            transform: translateZ(100px) scale(1.05);
+        }
     </style>
 </head>
 <body>
 
     <div id="envelope-gate">
-        <div class="seal" onclick="openMsg()"><span>❤</span></div>
-        <p style="margin-top: 20px; font-family: 'Italianno', cursive; font-size: 1.8rem; opacity: 0.5;">Tap to open</p>
+        <div class="wax-seal" id="sealBtn"><span>❤</span></div>
+        <p style="margin-top: 30px; font-family: 'Italianno', cursive; font-size: 2rem; opacity: 0.6;">Open my heart, Taniya</p>
     </div>
 
     <canvas id="particle-canvas"></canvas>
@@ -130,21 +201,21 @@
     </audio>
 
     <div id="intro" class="sanctuary active">
-        <div class="label">Act I</div>
+        <div class="label">The Awakening</div>
         <h1>Taniya</h1>
-        <p class="script-quote">My Sweetest Melody</p>
-        <button class="btn-love" onclick="seek('journey')">Next</button>
+        <p class="script-quote">My Heart's Quiet Melody</p>
+        <button class="btn-love" onclick="seek('journey')">Our Story</button>
     </div>
 
     <div id="journey" class="sanctuary">
-        <div class="label">Act II</div>
+        <div class="label">Moments in Eternity</div>
         <p class="script-quote">14 September • The Vow</p>
         <p class="script-quote">13 October • The Reunion</p>
-        <button class="btn-love" onclick="seek('gallery')">Memories</button>
+        <button class="btn-love" onclick="seek('gallery')">Archives</button>
     </div>
 
     <div id="gallery" class="sanctuary">
-        <div class="portal">
+        <div class="window">
             <img class="slide active" src="photo1.jpg">
             <img class="slide" src="photo2.jpg">
             <img class="slide" src="photo3.jpg">
@@ -152,17 +223,23 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-love" onclick="seek('proposal')">The End?</button>
+        <button class="btn-love" onclick="seek('proposal')">Ascend</button>
     </div>
 
     <div id="proposal" class="sanctuary">
+        <div class="label">One Lifetime</div>
         <h1>Be Mine?</h1>
-        <button class="btn-love" onclick="seek('final')">Always</button>
+        <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
+            <button class="btn-love" id="yesBtn">Always Yours</button>
+            <button class="btn-love" id="noBtn" style="opacity: 0.1; border-color: #333;">No</button>
+        </div>
     </div>
 
     <div id="final" class="sanctuary">
+        <div id="secret-memory" style="background-image: url('photo1.jpg');"></div>
         <h1>Infinity.</h1>
-        <p id="typewriter" class="script-quote"></p>
+        <p id="typewriter" class="script-quote" style="font-size: 1.7rem;"></p>
+        <div class="label" style="margin-top: 35px;">Forever Yours.</div>
     </div>
 
     <script>
@@ -170,32 +247,90 @@
         const ctx = canvas.getContext('2d');
         let elements = [];
 
-        function openMsg() {
-            document.getElementById('envelope-gate').style.opacity = '0';
-            document.getElementById('envelope-gate').style.pointerEvents = 'none';
+        const sealBtn = document.getElementById('sealBtn');
+        let heartbeatInterval;
+
+        function startHaptics() {
+            if ("vibrate" in navigator) {
+                heartbeatInterval = setInterval(() => {
+                    navigator.vibrate([100, 50, 100]); 
+                }, 1400);
+            }
+        }
+
+        function stopHaptics() {
+            clearInterval(heartbeatInterval);
+            if ("vibrate" in navigator) navigator.vibrate(0);
+        }
+
+        startHaptics();
+
+        function openMessage() {
+            stopHaptics();
+            const gate = document.getElementById('envelope-gate');
+            gate.style.opacity = '0';
+            gate.style.pointerEvents = 'none';
             document.getElementById('music').play().catch(()=>{});
         }
 
-        // Optimized Particles
-        function init() {
+        sealBtn.addEventListener('click', openMessage);
+
+        // --- WHITE CELESTIAL ELEMENT ENGINE ---
+        function initElements() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            elements = Array.from({length: 40}, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vy: Math.random() * 0.5 + 0.2,
-                o: Math.random() * 0.5
-            }));
+            elements = [];
+            for (let i = 0; i < 80; i++) {
+                elements.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 12 + 4,
+                    vx: Math.random() * 0.3 - 0.15,
+                    vy: Math.random() * 0.5 + 0.2,
+                    type: Math.random() > 0.6 ? 'heart' : (Math.random() > 0.4 ? 'petal' : 'dust'),
+                    opacity: Math.random() * 0.4 + 0.2,
+                    rot: Math.random() * 360
+                });
+            }
         }
-        init();
+        initElements(); window.onresize = initElements;
+
+        function drawHeart(ctx, x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + size / 4);
+            ctx.quadraticCurveTo(x, y, x + size / 4, y);
+            ctx.quadraticCurveTo(x + size / 2, y, x + size / 2, y + size / 4);
+            ctx.quadraticCurveTo(x + size / 2, y, x + size * 3/4, y);
+            ctx.quadraticCurveTo(x + size, y, x + size, y + size / 4);
+            ctx.quadraticCurveTo(x + size, y + size / 2, x + size / 2, y + size);
+            ctx.quadraticCurveTo(x, y + size / 2, x, y + size / 4);
+            ctx.fill();
+        }
 
         function animate() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
             elements.forEach(e => {
                 e.y += e.vy;
-                if(e.y > canvas.height) e.y = -10;
-                ctx.fillStyle = `rgba(255,255,255,${e.o})`;
-                ctx.beginPath(); ctx.arc(e.x, e.y, 2, 0, Math.PI*2); ctx.fill();
+                e.x += e.vx;
+                e.rot += 0.4;
+                if(e.y > canvas.height) { e.y = -20; e.x = Math.random() * canvas.width; }
+                
+                ctx.save();
+                ctx.globalAlpha = e.opacity;
+                ctx.fillStyle = '#ffffff'; // PURE WHITE PARTICLES
+                ctx.translate(e.x, e.y);
+                ctx.rotate(e.rot * Math.PI / 180);
+
+                if(e.type === 'heart') {
+                    drawHeart(ctx, 0, 0, e.size);
+                } else if(e.type === 'petal') {
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, e.size/2, e.size, 0, 0, 2*Math.PI);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath(); ctx.arc(0,0, 1.2, 0, Math.PI*2); ctx.fill();
+                }
+                ctx.restore();
             });
             requestAnimationFrame(animate);
         }
@@ -204,36 +339,48 @@
         function seek(id) {
             document.querySelectorAll('.sanctuary').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(id === 'final') type();
-            if(id === 'proposal' && "vibrate" in navigator) navigator.vibrate([100,50,100]);
+            if(id === 'proposal') startHaptics();
+            else if(id !== 'proposal') stopHaptics();
+            if(id === 'final') {
+                type();
+                setTimeout(() => {
+                    document.getElementById('secret-memory').style.opacity = "0.2";
+                }, 2000);
+            }
         }
 
-        // Liquid Interaction
         window.addEventListener('mousemove', (e) => {
             const card = document.querySelector('.sanctuary.active');
             if(card) {
-                let x = (window.innerWidth / 2 - e.clientX) / 90;
-                let y = (window.innerHeight / 2 - e.clientY) / 90;
+                let x = (window.innerWidth / 2 - e.clientX) / 85;
+                let y = (window.innerHeight / 2 - e.clientY) / 85;
                 card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         });
 
-        // --- THE FIXED SMOOTH SLIDER ---
-        let cur = 0;
-        const slides = document.querySelectorAll('.slide');
+        function type() {
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, I am yours entirely. I love you, forever.";
+            let i = 0; const el = document.getElementById('typewriter');
+            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
+        }
+
+        const no = document.getElementById('noBtn');
+        no.onmouseover = () => {
+            no.style.position = 'fixed';
+            no.style.left = Math.random() * 80 + 'vw';
+            no.style.top = Math.random() * 80 + 'vh';
+        };
+
+        document.getElementById('yesBtn').onclick = () => seek('final');
+
+        let cur = 0; const slides = document.querySelectorAll('.slide');
         setInterval(() => {
             if(document.getElementById('gallery').classList.contains('active')) {
                 slides[cur].classList.remove('active');
                 cur = (cur + 1) % slides.length;
                 slides[cur].classList.add('active');
             }
-        }, 3500); // 3.5 seconds for a smooth, unhurried pace
-
-        function type() {
-            const msg = "Taniya... you are my forever. I love you beyond words.";
-            let i = 0; const el = document.getElementById('typewriter');
-            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 70);
-        }
+        }, 4500);
     </script>
 </body>
 </html>
