@@ -57,17 +57,14 @@
             transform-style: preserve-3d;
         }
 
-        .wax-seal span {
-            font-size: 2.2rem;
-            color: var(--rose);
-        }
+        .wax-seal span { font-size: 2.2rem; color: var(--rose); }
 
         @keyframes pulseSeal {
-            0%, 100% { transform: scale(1) translateZ(0); opacity: 0.7; }
-            50% { transform: scale(1.1) translateZ(50px); opacity: 1; box-shadow: 0 0 50px rgba(229, 179, 163, 0.3); }
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 50px rgba(229, 179, 163, 0.3); }
         }
 
-        /* --- ROMANTIC ATMOSPHERE --- */
+        /* --- ROMANTIC PARTICLE CANVAS --- */
         #particle-canvas {
             position: fixed;
             inset: 0;
@@ -126,6 +123,21 @@
             font-size: 2rem;
             color: var(--rose);
             line-height: 1.2;
+        }
+
+        /* --- SECRET MEMORY LAYER --- */
+        #secret-memory {
+            position: absolute;
+            inset: 15%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            border-radius: 30px;
+            filter: grayscale(1) contrast(1.2) brightness(0.6);
+            transition: opacity 4s ease-in-out;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 80%);
         }
 
         /* --- CINEMATIC WINDOW --- */
@@ -225,6 +237,7 @@
     </div>
 
     <div id="final" class="sanctuary">
+        <div id="secret-memory" style="background-image: url('photo1.jpg');"></div>
         <h1>Infinity.</h1>
         <p id="typewriter" class="script-quote" style="font-size: 1.7rem;"></p>
         <div class="label" style="margin-top: 35px;">Forever Yours.</div>
@@ -233,7 +246,7 @@
     <script>
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
-        let fireflies = [];
+        let elements = [];
 
         // --- HAPTIC HEARTBEAT LOGIC ---
         const sealBtn = document.getElementById('sealBtn');
@@ -242,7 +255,7 @@
         function startHaptics() {
             if ("vibrate" in navigator) {
                 heartbeatInterval = setInterval(() => {
-                    navigator.vibrate([100, 50, 100]); // Thump-Thump
+                    navigator.vibrate([100, 50, 100]); 
                 }, 1400);
             }
         }
@@ -252,11 +265,10 @@
             if ("vibrate" in navigator) navigator.vibrate(0);
         }
 
-        // Start heartbeat as soon as she sees the seal
         startHaptics();
 
         function openMessage() {
-            stopHaptics(); // Stop once opened, or keep for proposal
+            stopHaptics();
             const gate = document.getElementById('envelope-gate');
             gate.style.opacity = '0';
             gate.style.pointerEvents = 'none';
@@ -265,28 +277,61 @@
 
         sealBtn.addEventListener('click', openMessage);
 
-        function initParticles() {
+        // --- ENHANCED ROMANTIC ELEMENT ENGINE ---
+        function initElements() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            fireflies = Array.from({length: 50}, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                s: Math.random() * 2 + 1,
-                vx: Math.random() * 0.4 - 0.2,
-                vy: Math.random() * 0.4 - 0.2,
-                o: Math.random()
-            }));
+            elements = [];
+            for (let i = 0; i < 75; i++) {
+                elements.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 15 + 5,
+                    vx: Math.random() * 0.4 - 0.2,
+                    vy: Math.random() * 0.6 + 0.2,
+                    type: Math.random() > 0.6 ? 'heart' : (Math.random() > 0.5 ? 'petal' : 'dust'),
+                    opacity: Math.random() * 0.5 + 0.2,
+                    rot: Math.random() * 360
+                });
+            }
         }
-        initParticles(); window.onresize = initParticles;
+        initElements(); window.onresize = initElements;
+
+        function drawHeart(ctx, x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + size / 4);
+            ctx.quadraticCurveTo(x, y, x + size / 4, y);
+            ctx.quadraticCurveTo(x + size / 2, y, x + size / 2, y + size / 4);
+            ctx.quadraticCurveTo(x + size / 2, y, x + size * 3/4, y);
+            ctx.quadraticCurveTo(x + size, y, x + size, y + size / 4);
+            ctx.quadraticCurveTo(x, y + size / 2, x, y + size / 4);
+            ctx.fill();
+        }
 
         function animate() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            fireflies.forEach(f => {
-                f.x += f.vx; f.y += f.vy;
-                if(f.x < 0) f.x = canvas.width; if(f.x > canvas.width) f.x = 0;
-                if(f.y < 0) f.y = canvas.height; if(f.y > canvas.height) f.y = 0;
-                ctx.fillStyle = `rgba(229, 179, 163, ${f.o})`;
-                ctx.beginPath(); ctx.arc(f.x, f.y, f.s, 0, Math.PI * 2); ctx.fill();
+            elements.forEach(e => {
+                e.y += e.vy;
+                e.x += e.vx;
+                e.rot += 0.5;
+                if(e.y > canvas.height) { e.y = -20; e.x = Math.random() * canvas.width; }
+                
+                ctx.save();
+                ctx.globalAlpha = e.opacity;
+                ctx.fillStyle = 'var(--rose)';
+                ctx.translate(e.x, e.y);
+                ctx.rotate(e.rot * Math.PI / 180);
+
+                if(e.type === 'heart') {
+                    drawHeart(ctx, 0, 0, e.size);
+                } else if(e.type === 'petal') {
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, e.size/2, e.size, 0, 0, 2*Math.PI);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath(); ctx.arc(0,0, 1.5, 0, Math.PI*2); ctx.fill();
+                }
+                ctx.restore();
             });
             requestAnimationFrame(animate);
         }
@@ -295,12 +340,14 @@
         function seek(id) {
             document.querySelectorAll('.sanctuary').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(id === 'proposal') { 
-                startHaptics(); // Heartbeat returns for the proposal
-            } else if(id !== 'proposal') {
-                stopHaptics();
+            if(id === 'proposal') startHaptics();
+            else if(id !== 'proposal') stopHaptics();
+            if(id === 'final') {
+                type();
+                setTimeout(() => {
+                    document.getElementById('secret-memory').style.opacity = "0.3";
+                }, 2000);
             }
-            if(id === 'final') type();
         }
 
         window.addEventListener('mousemove', (e) => {
