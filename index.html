@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ETERNAL ASCENSION | Taniya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Orbitron:wght@400;900&family=Montserrat:wght@100;400;900&display=swap" rel="stylesheet">
+    <title>Infinity | Taniya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --pink: #ff0055;
-            --cyan: #00d4ff;
-            --unit: clamp(10px, 2vw, 20px);
+            --soft-rose: #ff85a1;
+            --deep-space: #0a0612;
+            --gold-leaf: #f4d03f;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background: #000;
+            background: var(--deep-space);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             height: 100vh;
@@ -25,226 +25,201 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1500px; /* Enhanced 3D Perspective */
+            perspective: 1000px;
             touch-action: none;
         }
 
-        #cosmic-bg {
+        /* --- STATIC CINEMATIC BACKGROUND --- */
+        #starfield {
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: radial-gradient(circle at center, #1a0033 0%, #000 100%);
+            background: radial-gradient(circle at center, #1a0b1e 0%, #050208 100%);
         }
 
-        /* --- THE 3D WORLD CONTAINER (UNIFIED PC/MOBILE) --- */
-        .world {
-            position: relative;
+        /* --- THE ELEGANT MONOLITH --- */
+        .card {
+            position: absolute;
             width: 90vw;
             max-width: 450px;
             aspect-ratio: 9/16;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out;
-            will-change: transform;
-        }
-
-        .monolith {
-            position: absolute;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(35px) saturate(200%);
-            -webkit-backdrop-filter: blur(35px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 45px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: calc(var(--unit) * 2.5);
+            padding: 40px;
             text-align: center;
-            box-shadow: 0 0 100px rgba(255, 0, 85, 0.2);
-            transform-style: preserve-3d;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+            /* Reduced 3D movement via limited transition */
+            transition: transform 0.6s ease-out;
         }
 
-        .monolith.active {
+        .card.active {
             display: flex;
-            animation: hyperWarp 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+            animation: breatheIn 1.5s ease-out forwards;
         }
 
-        @keyframes hyperWarp {
-            0% { opacity: 0; transform: translateZ(-1200px) rotateX(45deg); filter: blur(20px); }
-            100% { opacity: 1; transform: translateZ(0) rotateX(0deg); filter: blur(0); }
+        @keyframes breatheIn {
+            0% { opacity: 0; transform: scale(0.95); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
         }
 
-        /* --- 3D ROMANTIC LAYERING --- */
-        .glass-text { transform: translateZ(60px); text-shadow: 0 10px 20px rgba(0,0,0,0.6); }
-        .glass-header { transform: translateZ(110px); filter: drop-shadow(0 0 15px var(--pink)); }
-        
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: calc(var(--unit) * 4.5);
-            background: linear-gradient(to bottom, #fff, var(--pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(3.5rem, 15vw, 5.5rem);
             margin-bottom: 10px;
+            color: var(--soft-rose);
+            text-shadow: 0 0 20px rgba(255, 133, 161, 0.4);
         }
 
-        .cyber-tag {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.65rem;
-            color: var(--cyan);
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+        .date-tag {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: var(--gold-leaf);
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            opacity: 0.8;
         }
 
-        /* --- THE CINEMATIC PORTAL --- */
+        /* --- THE ROMANTIC PORTAL --- */
         .portal {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 30px;
+            border-radius: 40px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
             margin: 20px 0;
-            transform: translateZ(40px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
         }
 
         .slide {
             position: absolute;
             inset: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0;
-            transition: opacity 1.5s ease;
-            transform: scale(1.1);
+            transition: opacity 2s ease-in-out;
         }
 
-        .slide.active { opacity: 1; animation: cosmicZoom 10s infinite alternate ease-in-out; }
+        .slide.active { opacity: 1; animation: softZoom 12s infinite alternate ease-in-out; }
 
-        @keyframes cosmicZoom {
+        @keyframes softZoom {
             from { transform: scale(1); }
-            to { transform: scale(1.25) rotate(2deg); }
+            to { transform: scale(1.1); }
         }
 
-        /* --- ACTION BUTTONS --- */
-        .btn-ascend {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--pink);
+        /* --- ELEGANT BUTTONS --- */
+        .btn-love {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 16px 40px;
             color: #fff;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Cinzel', serif;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.8rem;
+            letter-spacing: 3px;
+            font-size: 0.7rem;
             border-radius: 100px;
             margin-top: 25px;
             cursor: pointer;
-            transition: 0.4s;
-            transform: translateZ(80px); /* Makes button pop out */
+            transition: 0.5s;
         }
 
-        .btn-ascend:hover {
-            background: var(--pink);
-            box-shadow: 0 0 50px var(--pink);
-            transform: translateZ(100px) scale(1.1);
+        .btn-love:hover {
+            border-color: var(--soft-rose);
+            background: rgba(255, 133, 161, 0.1);
+            box-shadow: 0 0 30px rgba(255, 133, 161, 0.2);
         }
 
-        /* Liquid Cursor/Pointer Glow */
-        #pointer-glow {
-            position: fixed; width: 25px; height: 25px;
-            background: var(--cyan); border-radius: 50%;
-            pointer-events: none; z-index: 10000; mix-blend-mode: screen;
-            box-shadow: 0 0 25px var(--cyan);
-            display: none;
-        }
+        /* Minimal Pulse for Touch Feedback */
+        .btn-love:active { transform: scale(0.98); }
+
     </style>
 </head>
 <body>
 
-    <canvas id="cosmic-bg"></canvas>
-    <div id="pointer-glow"></div>
+    <canvas id="starfield"></canvas>
 
-    <audio id="bg-music" loop>
+    <audio id="song" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="world" id="world-container">
-        <div id="intro" class="monolith active">
-            <div class="cyber-tag glass-text">Initialization: True Love</div>
-            <h1 class="glass-header">Taniya</h1>
-            <p class="glass-text">From the first tour in Ernakulam to the last beat of my heart.</p>
-            <button class="btn-ascend" onclick="next('journey')">Access Journey</button>
-        </div>
+    <div id="intro" class="card active">
+        <div class="date-tag">A Destined Meeting</div>
+        <h1>Taniya</h1>
+        <p style="font-weight: 100; letter-spacing: 1px;">From that school tour in Ernakulam... to the center of my world.</p>
+        <button class="btn-love" onclick="next('journey')">Our Story</button>
+    </div>
 
-        <div id="journey" class="monolith">
-            <div class="cyber-tag glass-text">Timeline Locked</div>
-            <h1 class="glass-header">Our Story</h1>
-            <p class="glass-text">14.09.25 • The Promise<br>13.10.25 • The First Touch</p>
-            <button class="btn-ascend" onclick="next('gallery')">Archives</button>
-        </div>
+    <div id="journey" class="card">
+        <div class="date-tag">Written in the Stars</div>
+        <h1>Our Journey</h1>
+        <p>14 Sept • The Promise of Forever</p>
+        <p>13 Oct • The Beauty of a Moment</p>
+        <button class="btn-love" onclick="next('gallery')">Memories</button>
+    </div>
 
-        <div id="gallery" class="monolith">
-            <div class="portal">
-                <img class="slide active" src="photo1.jpg">
-                <img class="slide" src="photo2.jpg">
-                <img class="slide" src="photo3.jpg">
-                <img class="slide" src="photo4.jpg">
-                <img class="slide" src="photo5.jpg">
-                <img class="slide" src="photo6.jpg">
-            </div>
-            <button class="btn-ascend" onclick="next('proposal')">The Question</button>
+    <div id="gallery" class="card">
+        <div class="portal">
+            <img class="slide active" src="photo1.jpg">
+            <img class="slide" src="photo2.jpg">
+            <img class="slide" src="photo3.jpg">
+            <img class="slide" src="photo4.jpg">
+            <img class="slide" src="photo5.jpg">
+            <img class="slide" src="photo6.jpg">
         </div>
+        <button class="btn-love" onclick="next('proposal')">My Prayer</button>
+    </div>
 
-        <div id="proposal" class="monolith">
-            <div class="cyber-tag glass-text">Final Command</div>
-            <h1 class="glass-header">Be My Wife?</h1>
-            <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
-                <button class="btn-ascend" id="yesBtn">Yes, For Eternity</button>
-                <button class="btn-ascend" id="noBtn" style="border-color:#444; opacity:0.3;">No</button>
-            </div>
-        </div>
-
-        <div id="final" class="monolith">
-            <h1 class="glass-header">Infinity.</h1>
-            <p id="typewriter" class="glass-text" style="font-weight:200; font-size:1.1rem;"></p>
-            <div class="cyber-tag glass-text" style="margin-top:30px;">Status: Forever Found</div>
+    <div id="proposal" class="card">
+        <div class="date-tag">My Only Wish</div>
+        <h1 style="font-size: 3rem;">Will You Be My Wife?</h1>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+            <button class="btn-love" id="yesBtn" style="border-color: var(--soft-rose);">Yes, My Love</button>
+            <button class="btn-love" id="noBtn" style="opacity: 0.3; border-color: #555;">No</button>
         </div>
     </div>
 
+    <div id="final" class="card">
+        <h1>Forever Found</h1>
+        <p id="typewriter" style="font-weight: 200; font-style: italic;"></p>
+        <div class="date-tag" style="margin-top: 30px;">In every lifetime, it's you.</div>
+    </div>
+
     <script>
-        const canvas = document.getElementById('cosmic-bg');
+        const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
-        const container = document.getElementById('world-container');
-        let stars = [], speed = 1.3, hearts = [];
+        let stars = [], speed = 0.5, hearts = [];
 
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            stars = Array.from({length: 400}, () => ({
-                x: Math.random() * canvas.width - canvas.width/2,
-                y: Math.random() * canvas.height - canvas.height/2,
-                z: Math.random() * canvas.width
+            stars = Array.from({length: 250}, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                z: Math.random() * canvas.width,
+                o: Math.random()
             }));
         }
         init(); window.onresize = init;
 
         function draw() {
-            ctx.fillStyle = 'rgba(0,0,0,0.15)'; 
+            ctx.fillStyle = '#050208'; 
             ctx.fillRect(0,0,canvas.width, canvas.height);
             
-            // Starfield Engine
             stars.forEach(s => {
-                s.z -= speed;
-                if(s.z <= 0) s.z = canvas.width;
-                let x = s.x * (canvas.width/s.z) + canvas.width/2;
-                let y = s.y * (canvas.width/s.z) + canvas.height/2;
-                let r = (1 - s.z/canvas.width) * 2.5;
-                ctx.fillStyle = `rgba(255, 45, 85, ${1 - s.z/canvas.width})`;
-                ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+                s.o += 0.01;
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(Math.sin(s.o)) * 0.5})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 1, 0, Math.PI*2);
+                ctx.fill();
             });
 
-            // Celebration Particle Engine
             hearts.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy; p.alpha -= 0.01;
-                ctx.fillStyle = `rgba(0, 212, 255, ${p.alpha})`;
+                p.x += p.vx; p.y += p.vy; p.alpha -= 0.008;
+                ctx.fillStyle = `rgba(255, 133, 161, ${p.alpha})`;
                 ctx.font = `${p.size}px serif`;
                 ctx.fillText('❤', p.x, p.y);
                 if(p.alpha <= 0) hearts.splice(i, 1);
@@ -254,71 +229,70 @@
         draw();
 
         function next(id) {
-            document.querySelectorAll('.monolith').forEach(m => m.classList.remove('active'));
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(id === 'journey') document.getElementById('bg-music').play().catch(()=>{});
+            if(id === 'journey') document.getElementById('song').play().catch(()=>{});
             if(id === 'final') { 
-                speed = 30; // Light speed warp
-                triggerCelebration();
+                triggerHearts();
                 type();
             }
         }
 
-        // Unified 3D Mouse & Touch Engine
-        const interaction = (e) => {
-            const glow = document.getElementById('pointer-glow');
-            glow.style.display = 'block';
-            let cx = e.touches ? e.touches[0].clientX : e.clientX;
-            let cy = e.touches ? e.touches[0].clientY : e.clientY;
-            
-            let rx = (window.innerHeight / 2 - cy) / 12;
-            let ry = (window.innerWidth / 2 - cx) / -12;
-            container.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-            
-            glow.style.left = cx + 'px';
-            glow.style.top = cy + 'px';
+        // --- STABILIZED INTERACTION (LESS MOVEMENT) ---
+        const handleInteraction = (e) => {
+            const activeCard = document.querySelector('.card.active');
+            if(activeCard) {
+                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                
+                // Very subtle rotation (divisor increased for less movement)
+                let x = (window.innerWidth / 2 - clientX) / 60;
+                let y = (window.innerHeight / 2 - clientY) / 60;
+                activeCard.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            }
         };
 
-        window.addEventListener('mousemove', interaction);
-        window.addEventListener('touchmove', interaction);
+        window.addEventListener('mousemove', handleInteraction);
+        window.addEventListener('touchmove', handleInteraction);
 
-        function triggerCelebration() {
-            for(let i=0; i<80; i++) {
+        function triggerHearts() {
+            for(let i=0; i<40; i++) {
                 hearts.push({
                     x: canvas.width/2, y: canvas.height/2,
-                    vx: (Math.random() - 0.5) * 18,
-                    vy: (Math.random() - 0.5) * 18,
-                    size: Math.random() * 30 + 10,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: (Math.random() - 0.5) * 8,
+                    size: Math.random() * 20 + 10,
                     alpha: 1
                 });
             }
         }
 
         function type() {
-            const msg = "Taniya, you are the AI to my ML, the variable I'll never change, and the love I'll always choose. From Ernakulam to our forever house, I love you more than words can render.";
+            const msg = "Taniya, you are the dream I never want to wake up from. From the moment we met in Ernakulam, my heart found its home. I will choose you in every lifetime.";
             let i = 0; const el = document.getElementById('typewriter');
-            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 40);
+            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 50);
         }
 
-        // Escape No Logic
+        // Impossible No Button
         const no = document.getElementById('noBtn');
-        const jump = () => {
+        const move = () => {
             no.style.position = 'fixed';
             no.style.left = Math.random() * 80 + 'vw';
             no.style.top = Math.random() * 80 + 'vh';
         };
-        no.onmouseover = jump; no.ontouchstart = jump;
+        no.onmouseover = move; no.ontouchstart = move;
+
         document.getElementById('yesBtn').onclick = () => next('final');
 
-        // Slideshow Engine
-        let cur = 0; const slides = document.querySelectorAll('.slide');
+        // Slideshow
+        let curS = 0; const slides = document.querySelectorAll('.slide');
         setInterval(() => {
             if(document.getElementById('gallery').classList.contains('active')) {
-                slides[cur].classList.remove('active');
-                cur = (cur + 1) % slides.length;
-                slides[cur].classList.add('active');
+                slides[curS].classList.remove('active');
+                curS = (curS + 1) % slides.length;
+                slides[curS].classList.add('active');
             }
-        }, 3500);
+        }, 4000);
     </script>
 </body>
 </html>
