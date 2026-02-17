@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Taniya ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+color:white;
+overflow:hidden;
+background:black;
+text-align:center;
+}
+
+/* STAR CANVAS */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:420px;
+margin:auto;
+padding:20px;
+}
+
+/* TITLES */
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:42px;
+text-shadow:0 0 25px pink;
+margin:10px 0;
+}
+
+/* CARD */
+
+.card{
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(15px);
+border-radius:20px;
+padding:20px;
+box-shadow:0 0 40px rgba(255,0,100,0.3);
+animation:fade 2s;
+}
+
+@keyframes fade{
+from{opacity:0; transform:scale(.9);}
+to{opacity:1; transform:scale(1);}
+}
+
+/* BUTTONS */
+
+button{
+padding:14px 26px;
+border:none;
+border-radius:30px;
+font-size:18px;
+margin:10px;
+cursor:pointer;
+}
+
+#yes{
+background:#ff4d6d;
+color:white;
+box-shadow:0 0 20px #ff4d6d;
+animation:pulse 1.5s infinite;
+}
+
+#no{
+background:white;
+color:#ff4d6d;
+position:absolute;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+/* SLIDESHOW */
+
+.slideshow img{
+width:100%;
+border-radius:15px;
+display:none;
+box-shadow:0 0 20px pink;
+}
+
+/* RING */
+
+.ring{
+font-size:90px;
+animation:ring 1s ease;
+}
+
+@keyframes ring{
+0%{transform:scale(0);}
+100%{transform:scale(1);}
+}
+
+/* FINAL */
+
+.final{
+font-family:'Great Vibes',cursive;
+font-size:36px;
+margin-top:35vh;
+}
+
+.days{
+margin:10px;
+font-size:18px;
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<audio id="music" loop>
+<source src="blue.mp3">
+</audio>
+
+<div id="app" class="container">
+<h1>❤️ Tap to Enter ❤️</h1>
+</div>
+
+<script>
+
+/* STARFIELD */
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+
+for(let i=0;i<300;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2
+});
+}
+
+function drawStars(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+});
+
+requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+/* APP FLOW */
+
+const app=document.getElementById("app");
+const music=document.getElementById("music");
+
+document.body.addEventListener("click",start,{once:true});
+
+function start(){
+music.play().catch(()=>{});
+constellation();
+}
+
+/* CONSTELLATION NAME */
+
+function constellation(){
+
+app.innerHTML=`<h1>Taniya Elsa John ✨</h1>`;
+
+setTimeout(intro,2500);
+
+}
+
+/* INTRO */
+
+function intro(){
+
+app.innerHTML=`
+
+<div class="card">
+
+<h1>Taniya ❤️</h1>
+
+<p>
+In this infinite universe…  
+my heart found its home in you.
+</p>
+
+<p>
+We first met during our <b>+2 Tour</b> ✨  
+And from that moment… everything changed.
+</p>
+
+<button onclick="timeline()">Our Journey ❤️</button>
+
+</div>
+
+`;
+
+}
+
+/* TIMELINE */
+
+function timeline(){
+
+app.innerHTML=`
+
+<div class="card">
+
+<h1>Our Story 💕</h1>
+
+<p>
+❤️ First met during +2 Tour<br><br>
+
+💖 We committed on <b>14 September 2025</b><br><br>
+
+💞 First meeting after commitment<br>
+<b>13 October 2025</b>
+</p>
+
+<div class="days" id="days"></div>
+
+<button onclick="memories()">Memories 📸</button>
+
+</div>
+
+`;
+
+relationshipDays();
+
+}
+
+/* DAYS COUNTER */
+
+function relationshipDays(){
+
+let start=new Date("2025-09-14");
+let today=new Date();
+
+let diff=Math.floor((today-start)/(1000*60*60*24));
+
+document.getElementById("days").innerHTML=
+`❤️ ${diff} days together ❤️`;
+
+}
+
+/* MEMORIES */
+
+function memories(){
+
+app.innerHTML=`
+
+<div class="card">
+
+<h1>Our Memories 📸</h1>
+
+<div class="slideshow">
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<img src="photo4.jpg">
+<img src="photo5.jpg">
+<img src="photo6.jpg">
+</div>
+
+<p>
+Every memory with you is a piece of heaven.
+</p>
+
+<button onclick="letter()">Next ❤️</button>
+
+</div>
+
+`;
+
+slideshow();
+
+}
+
+/* SLIDESHOW */
+
+function slideshow(){
+
+let slides=document.querySelectorAll(".slideshow img");
+let i=0;
+
+function show(){
+slides.forEach(s=>s.style.display="none");
+slides[i].style.display="block";
+i=(i+1)%slides.length;
+}
+
+show();
+setInterval(show,2500);
+
+}
+
+/* LETTER */
+
+function letter(){
+
+app.innerHTML=`
+
+<div class="card">
+
+<h1>My Love Letter 💌</h1>
+
+<p>
+You are my happiness,  
+my peace,  
+my best friend,  
+and my forever.<br><br>
+
+With you, life feels complete.
+</p>
+
+<button onclick="proposal()">Continue 💍</button>
+
+</div>
+
+`;
+
+}
+
+/* PROPOSAL */
+
+function proposal(){
+
+app.innerHTML=`
+
+<div class="card">
+
+<h1>My Love ❤️</h1>
+
+<p>
+I want to grow with you,  
+laugh with you,  
+dream with you,  
+and spend every lifetime loving you.
+</p>
+
+<div class="ring">💍</div>
+
+<h1>Will You Be My Wife?</h1>
+
+<button id="yes">Yes ❤️</button>
+<button id="no">No 😄</button>
+
+<p style="font-size:14px;">Forever Yours — Emmanuel ❤️</p>
+
+</div>
+
+`;
+
+let noBtn=document.getElementById("no");
+
+function move(){
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+}
+
+noBtn.addEventListener("touchstart",move);
+noBtn.addEventListener("mouseover",move);
+
+document.getElementById("yes").onclick=celebrate;
+
+}
+
+/* CELEBRATE */
+
+function celebrate(){
+
+document.body.innerHTML=`
+
+<div class="ring">💍</div>
+
+<div class="final">
+Thank you babe ❤️<br><br>
+Forever Yours 💖
+</div>
+
+`;
+
+fireworks();
+
+}
+
+/* FIREWORKS */
+
+function fireworks(){
+
+setInterval(()=>{
+
+let heart=document.createElement("div");
+heart.innerHTML="💖";
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top=Math.random()*100+"vh";
+heart.style.fontSize="30px";
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),2000);
+
+},250);
+
+}
+
+</script>
+</body>
+</html>
