@@ -11,6 +11,7 @@
             --rose: #e5b3a3;
             --midnight: #050103;
             --glass: rgba(255, 255, 255, 0.03);
+            --white-glow: rgba(255, 255, 255, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -45,31 +46,31 @@
         .wax-seal {
             width: 110px;
             height: 110px;
-            background: rgba(229, 179, 163, 0.05);
-            border: 1px solid var(--rose);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #fff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(229, 179, 163, 0.1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
             animation: pulseSeal 2s infinite ease-in-out;
             transform-style: preserve-3d;
         }
 
-        .wax-seal span { font-size: 2.2rem; color: var(--rose); }
+        .wax-seal span { font-size: 2.2rem; color: #fff; }
 
         @keyframes pulseSeal {
             0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 50px rgba(229, 179, 163, 0.3); }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); }
         }
 
-        /* --- ROMANTIC PARTICLE CANVAS --- */
+        /* --- WHITE CELESTIAL PARTICLE CANVAS --- */
         #particle-canvas {
             position: fixed;
             inset: 0;
             z-index: -1;
-            background: radial-gradient(circle at center, #1a080e 0%, #050103 100%);
+            background: radial-gradient(circle at center, #0f0f0f 0%, #000 100%);
         }
 
         /* --- THE SANCTUARY --- */
@@ -81,7 +82,7 @@
             background: var(--glass);
             backdrop-filter: blur(45px) saturate(180%);
             -webkit-backdrop-filter: blur(45px) saturate(180%);
-            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
             border-radius: 60px;
             display: none;
             flex-direction: column;
@@ -125,7 +126,6 @@
             line-height: 1.2;
         }
 
-        /* --- SECRET MEMORY LAYER --- */
         #secret-memory {
             position: absolute;
             inset: 15%;
@@ -133,14 +133,13 @@
             background-position: center;
             opacity: 0;
             border-radius: 30px;
-            filter: grayscale(1) contrast(1.2) brightness(0.6);
+            filter: grayscale(1) brightness(0.7);
             transition: opacity 4s ease-in-out;
             z-index: -1;
             mask-image: radial-gradient(circle, black 30%, transparent 80%);
             -webkit-mask-image: radial-gradient(circle, black 30%, transparent 80%);
         }
 
-        /* --- CINEMATIC WINDOW --- */
         .window {
             width: 100%;
             aspect-ratio: 4/5;
@@ -248,7 +247,6 @@
         const ctx = canvas.getContext('2d');
         let elements = [];
 
-        // --- HAPTIC HEARTBEAT LOGIC ---
         const sealBtn = document.getElementById('sealBtn');
         let heartbeatInterval;
 
@@ -277,20 +275,20 @@
 
         sealBtn.addEventListener('click', openMessage);
 
-        // --- ENHANCED ROMANTIC ELEMENT ENGINE ---
+        // --- WHITE CELESTIAL ELEMENT ENGINE ---
         function initElements() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             elements = [];
-            for (let i = 0; i < 75; i++) {
+            for (let i = 0; i < 80; i++) {
                 elements.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 15 + 5,
-                    vx: Math.random() * 0.4 - 0.2,
-                    vy: Math.random() * 0.6 + 0.2,
-                    type: Math.random() > 0.6 ? 'heart' : (Math.random() > 0.5 ? 'petal' : 'dust'),
-                    opacity: Math.random() * 0.5 + 0.2,
+                    size: Math.random() * 12 + 4,
+                    vx: Math.random() * 0.3 - 0.15,
+                    vy: Math.random() * 0.5 + 0.2,
+                    type: Math.random() > 0.6 ? 'heart' : (Math.random() > 0.4 ? 'petal' : 'dust'),
+                    opacity: Math.random() * 0.4 + 0.2,
                     rot: Math.random() * 360
                 });
             }
@@ -304,6 +302,7 @@
             ctx.quadraticCurveTo(x + size / 2, y, x + size / 2, y + size / 4);
             ctx.quadraticCurveTo(x + size / 2, y, x + size * 3/4, y);
             ctx.quadraticCurveTo(x + size, y, x + size, y + size / 4);
+            ctx.quadraticCurveTo(x + size, y + size / 2, x + size / 2, y + size);
             ctx.quadraticCurveTo(x, y + size / 2, x, y + size / 4);
             ctx.fill();
         }
@@ -313,12 +312,12 @@
             elements.forEach(e => {
                 e.y += e.vy;
                 e.x += e.vx;
-                e.rot += 0.5;
+                e.rot += 0.4;
                 if(e.y > canvas.height) { e.y = -20; e.x = Math.random() * canvas.width; }
                 
                 ctx.save();
                 ctx.globalAlpha = e.opacity;
-                ctx.fillStyle = 'var(--rose)';
+                ctx.fillStyle = '#ffffff'; // PURE WHITE PARTICLES
                 ctx.translate(e.x, e.y);
                 ctx.rotate(e.rot * Math.PI / 180);
 
@@ -329,7 +328,7 @@
                     ctx.ellipse(0, 0, e.size/2, e.size, 0, 0, 2*Math.PI);
                     ctx.fill();
                 } else {
-                    ctx.beginPath(); ctx.arc(0,0, 1.5, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(0,0, 1.2, 0, Math.PI*2); ctx.fill();
                 }
                 ctx.restore();
             });
@@ -345,7 +344,7 @@
             if(id === 'final') {
                 type();
                 setTimeout(() => {
-                    document.getElementById('secret-memory').style.opacity = "0.3";
+                    document.getElementById('secret-memory').style.opacity = "0.2";
                 }, 2000);
             }
         }
