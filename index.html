@@ -10,7 +10,6 @@
         :root {
             --pink: #ff0055;
             --cyan: #00d4ff;
-            /* Unified scaling factor for PC/Mobile */
             --unit: clamp(10px, 2vw, 20px);
         }
 
@@ -26,67 +25,64 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Force identical 3D depth on all screens */
-            perspective: 1200px;
+            perspective: 1500px; /* Enhanced 3D Perspective */
             touch-action: none;
         }
 
-        /* --- UNIFIED COSMIC BACKGROUND --- */
-        #cosmic-canvas {
+        #cosmic-bg {
             position: fixed;
             inset: 0;
             z-index: -1;
             background: radial-gradient(circle at center, #1a0033 0%, #000 100%);
         }
 
-        /* --- THE UNIFIED 3D MONOLITH --- */
-        .world-container {
+        /* --- THE 3D WORLD CONTAINER (UNIFIED PC/MOBILE) --- */
+        .world {
             position: relative;
             width: 90vw;
             max-width: 450px;
             aspect-ratio: 9/16;
             transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
+            transition: transform 0.15s ease-out;
             will-change: transform;
         }
 
         .monolith {
             position: absolute;
             inset: 0;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(35px) saturate(200%);
+            -webkit-backdrop-filter: blur(35px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 45px;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: calc(var(--unit) * 2);
+            padding: calc(var(--unit) * 2.5);
             text-align: center;
-            box-shadow: 0 0 100px rgba(255, 0, 85, 0.15);
+            box-shadow: 0 0 100px rgba(255, 0, 85, 0.2);
             transform-style: preserve-3d;
-            backface-visibility: hidden;
         }
 
         .monolith.active {
             display: flex;
-            animation: warpIn 1.2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+            animation: hyperWarp 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
         }
 
-        @keyframes warpIn {
-            0% { opacity: 0; transform: translateZ(-1000px) rotateY(90deg); }
-            100% { opacity: 1; transform: translateZ(0) rotateY(0deg); }
+        @keyframes hyperWarp {
+            0% { opacity: 0; transform: translateZ(-1200px) rotateX(45deg); filter: blur(20px); }
+            100% { opacity: 1; transform: translateZ(0) rotateX(0deg); filter: blur(0); }
         }
 
-        /* --- 3D FLOATING ELEMENTS --- */
-        .float-1 { transform: translateZ(50px); text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .float-2 { transform: translateZ(100px); filter: drop-shadow(0 0 15px var(--pink)); }
+        /* --- 3D ROMANTIC LAYERING --- */
+        .glass-text { transform: translateZ(60px); text-shadow: 0 10px 20px rgba(0,0,0,0.6); }
+        .glass-header { transform: translateZ(110px); filter: drop-shadow(0 0 15px var(--pink)); }
         
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: calc(var(--unit) * 4);
-            background: linear-gradient(180deg, #fff, var(--pink));
+            font-size: calc(var(--unit) * 4.5);
+            background: linear-gradient(to bottom, #fff, var(--pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
@@ -94,23 +90,23 @@
 
         .cyber-tag {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: var(--cyan);
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         /* --- THE CINEMATIC PORTAL --- */
         .portal {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 25px;
+            border-radius: 30px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.2);
             margin: 20px 0;
-            position: relative;
-            transform: translateZ(30px);
+            transform: translateZ(40px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .slide {
@@ -121,68 +117,68 @@
             transform: scale(1.1);
         }
 
-        .slide.active { opacity: 1; animation: cosmicZoom 8s infinite alternate; }
+        .slide.active { opacity: 1; animation: cosmicZoom 10s infinite alternate ease-in-out; }
 
         @keyframes cosmicZoom {
             from { transform: scale(1); }
-            to { transform: scale(1.2) rotate(1deg); }
+            to { transform: scale(1.25) rotate(2deg); }
         }
 
-        /* --- LIQUID ACTION BUTTONS --- */
-        .btn-core {
+        /* --- ACTION BUTTONS --- */
+        .btn-ascend {
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--pink);
-            padding: 15px 35px;
+            padding: 16px 40px;
             color: #fff;
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.75rem;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
             border-radius: 100px;
-            margin-top: 20px;
+            margin-top: 25px;
             cursor: pointer;
-            transition: 0.3s;
-            transform: translateZ(60px);
+            transition: 0.4s;
+            transform: translateZ(80px); /* Makes button pop out */
         }
 
-        .btn-core:hover {
+        .btn-ascend:hover {
             background: var(--pink);
-            box-shadow: 0 0 40px var(--pink);
-            transform: translateZ(80px) scale(1.1);
+            box-shadow: 0 0 50px var(--pink);
+            transform: translateZ(100px) scale(1.1);
         }
 
-        /* Unified Cursor/Touch Glow */
+        /* Liquid Cursor/Pointer Glow */
         #pointer-glow {
-            position: fixed; width: 20px; height: 20px;
+            position: fixed; width: 25px; height: 25px;
             background: var(--cyan); border-radius: 50%;
             pointer-events: none; z-index: 10000; mix-blend-mode: screen;
-            box-shadow: 0 0 20px var(--cyan);
-            display: none; /* Shown via JS */
+            box-shadow: 0 0 25px var(--cyan);
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="cosmic-canvas"></canvas>
+    <canvas id="cosmic-bg"></canvas>
     <div id="pointer-glow"></div>
 
     <audio id="bg-music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="world-container" id="world">
+    <div class="world" id="world-container">
         <div id="intro" class="monolith active">
-            <div class="cyber-tag float-1">Identity Verified</div>
-            <h1 class="float-2">Taniya</h1>
-            <p class="float-1">An Ernakulam tour that evolved into my entire universe.</p>
-            <button class="btn-core" onclick="next('journey')">Access Love Protocol</button>
+            <div class="cyber-tag glass-text">Initialization: True Love</div>
+            <h1 class="glass-header">Taniya</h1>
+            <p class="glass-text">From the first tour in Ernakulam to the last beat of my heart.</p>
+            <button class="btn-ascend" onclick="next('journey')">Access Journey</button>
         </div>
 
         <div id="journey" class="monolith">
-            <div class="cyber-tag float-1">Timeline Locked</div>
-            <h1 class="float-2">Our Story</h1>
-            <p class="float-1">14.09 • The Vow<br>13.10 • The First Touch</p>
-            <button class="btn-core" onclick="next('gallery')">Open Archives</button>
+            <div class="cyber-tag glass-text">Timeline Locked</div>
+            <h1 class="glass-header">Our Story</h1>
+            <p class="glass-text">14.09.25 • The Promise<br>13.10.25 • The First Touch</p>
+            <button class="btn-ascend" onclick="next('gallery')">Archives</button>
         </div>
 
         <div id="gallery" class="monolith">
@@ -194,36 +190,35 @@
                 <img class="slide" src="photo5.jpg">
                 <img class="slide" src="photo6.jpg">
             </div>
-            <button class="btn-core" onclick="next('proposal')">Ascend Final</button>
+            <button class="btn-ascend" onclick="next('proposal')">The Question</button>
         </div>
 
         <div id="proposal" class="monolith">
-            <div class="cyber-tag float-1">Event Horizon</div>
-            <h1 class="float-2">Be My Wife?</h1>
+            <div class="cyber-tag glass-text">Final Command</div>
+            <h1 class="glass-header">Be My Wife?</h1>
             <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
-                <button class="btn-core" id="yesBtn">Yes, For Eternity</button>
-                <button class="btn-core" id="noBtn" style="border-color:#444; opacity:0.3;">No</button>
+                <button class="btn-ascend" id="yesBtn">Yes, For Eternity</button>
+                <button class="btn-ascend" id="noBtn" style="border-color:#444; opacity:0.3;">No</button>
             </div>
         </div>
 
         <div id="final" class="monolith">
-            <h1 class="float-2">Infinity.</h1>
-            <p id="typewriter" class="float-1" style="font-weight:200;"></p>
-            <div class="cyber-tag float-1" style="margin-top:30px;">Status: Bound Forever</div>
+            <h1 class="glass-header">Infinity.</h1>
+            <p id="typewriter" class="glass-text" style="font-weight:200; font-size:1.1rem;"></p>
+            <div class="cyber-tag glass-text" style="margin-top:30px;">Status: Forever Found</div>
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('cosmic-canvas');
+        const canvas = document.getElementById('cosmic-bg');
         const ctx = canvas.getContext('2d');
-        const world = document.getElementById('world');
-        let stars = [], speed = 1.2, particles = [];
+        const container = document.getElementById('world-container');
+        let stars = [], speed = 1.3, hearts = [];
 
-        // Unified Resize Logic
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            stars = Array.from({length: 300}, () => ({
+            stars = Array.from({length: 400}, () => ({
                 x: Math.random() * canvas.width - canvas.width/2,
                 y: Math.random() * canvas.height - canvas.height/2,
                 z: Math.random() * canvas.width
@@ -232,25 +227,27 @@
         init(); window.onresize = init;
 
         function draw() {
-            ctx.fillStyle = 'rgba(0,0,0,0.1)'; 
+            ctx.fillStyle = 'rgba(0,0,0,0.15)'; 
             ctx.fillRect(0,0,canvas.width, canvas.height);
             
+            // Starfield Engine
             stars.forEach(s => {
                 s.z -= speed;
                 if(s.z <= 0) s.z = canvas.width;
                 let x = s.x * (canvas.width/s.z) + canvas.width/2;
                 let y = s.y * (canvas.width/s.z) + canvas.height/2;
-                let r = (1 - s.z/canvas.width) * 2;
-                ctx.fillStyle = `rgba(255, 0, 85, ${1 - s.z/canvas.width})`;
+                let r = (1 - s.z/canvas.width) * 2.5;
+                ctx.fillStyle = `rgba(255, 45, 85, ${1 - s.z/canvas.width})`;
                 ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
             });
 
-            particles.forEach((p, i) => {
+            // Celebration Particle Engine
+            hearts.forEach((p, i) => {
                 p.x += p.vx; p.y += p.vy; p.alpha -= 0.01;
                 ctx.fillStyle = `rgba(0, 212, 255, ${p.alpha})`;
                 ctx.font = `${p.size}px serif`;
                 ctx.fillText('❤', p.x, p.y);
-                if(p.alpha <= 0) particles.splice(i, 1);
+                if(p.alpha <= 0) hearts.splice(i, 1);
             });
             requestAnimationFrame(draw);
         }
@@ -261,50 +258,49 @@
             document.getElementById(id).classList.add('active');
             if(id === 'journey') document.getElementById('bg-music').play().catch(()=>{});
             if(id === 'final') { 
-                speed = 25; 
-                triggerHearts();
+                speed = 30; // Light speed warp
+                triggerCelebration();
                 type();
             }
         }
 
-        // --- UNIFIED 3D MOUSE & TOUCH PHYSICS ---
-        const handleInteraction = (e) => {
+        // Unified 3D Mouse & Touch Engine
+        const interaction = (e) => {
             const glow = document.getElementById('pointer-glow');
             glow.style.display = 'block';
-            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            let cx = e.touches ? e.touches[0].clientX : e.clientX;
+            let cy = e.touches ? e.touches[0].clientY : e.clientY;
             
-            // 3D Tilt calculation
-            let x = (window.innerWidth / 2 - clientX) / 15;
-            let y = (window.innerHeight / 2 - clientY) / 15;
-            world.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            let rx = (window.innerHeight / 2 - cy) / 12;
+            let ry = (window.innerWidth / 2 - cx) / -12;
+            container.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
             
-            // Pointer glow
-            glow.style.left = clientX + 'px';
-            glow.style.top = clientY + 'px';
+            glow.style.left = cx + 'px';
+            glow.style.top = cy + 'px';
         };
 
-        window.addEventListener('mousemove', handleInteraction);
-        window.addEventListener('touchmove', handleInteraction);
+        window.addEventListener('mousemove', interaction);
+        window.addEventListener('touchmove', interaction);
 
-        function triggerHearts() {
-            for(let i=0; i<50; i++) {
-                particles.push({
+        function triggerCelebration() {
+            for(let i=0; i<80; i++) {
+                hearts.push({
                     x: canvas.width/2, y: canvas.height/2,
-                    vx: (Math.random() - 0.5) * 12,
-                    vy: (Math.random() - 0.5) * 12,
-                    size: Math.random() * 25 + 10,
+                    vx: (Math.random() - 0.5) * 18,
+                    vy: (Math.random() - 0.5) * 18,
+                    size: Math.random() * 30 + 10,
                     alpha: 1
                 });
             }
         }
 
         function type() {
-            const t = "Taniya Elsa John, you are the AI to my ML and the only variable I'll never change. Forever starts now.";
+            const msg = "Taniya, you are the AI to my ML, the variable I'll never change, and the love I'll always choose. From Ernakulam to our forever house, I love you more than words can render.";
             let i = 0; const el = document.getElementById('typewriter');
-            const itv = setInterval(() => { el.innerHTML += t[i]; i++; if(i === t.length) clearInterval(itv); }, 40);
+            const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 40);
         }
 
+        // Escape No Logic
         const no = document.getElementById('noBtn');
         const jump = () => {
             no.style.position = 'fixed';
@@ -314,6 +310,7 @@
         no.onmouseover = jump; no.ontouchstart = jump;
         document.getElementById('yesBtn').onclick = () => next('final');
 
+        // Slideshow Engine
         let cur = 0; const slides = document.querySelectorAll('.slide');
         setInterval(() => {
             if(document.getElementById('gallery').classList.contains('active')) {
