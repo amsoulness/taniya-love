@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Infinity | Taniya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;300;600&display=swap" rel="stylesheet">
+    <title>Soul Resonance | Taniya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@100;200;400&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --rose: #e5b3a3;
+            --rose-gold: #e5b3a3;
             --midnight: #050103;
-            --glass: rgba(255, 255, 255, 0.02);
+            --soft-glow: rgba(229, 179, 163, 0.25);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -25,51 +25,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 2000px;
+            perspective: 1500px;
             touch-action: none;
         }
 
-        /* --- AMBIENT PHOTO LIGHTING --- */
-        #dynamic-bg {
+        /* --- ETHEREAL ATMOSPHERE --- */
+        #nebula {
             position: fixed;
-            inset: -15%;
-            z-index: -2;
-            background-size: cover;
-            background-position: center;
-            filter: blur(80px) brightness(0.2);
-            transition: background-image 2.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* --- FLOATING 3D MEMORIES --- */
-        .photo-float {
-            position: fixed;
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            pointer-events: none;
+            inset: 0;
             z-index: -1;
-            opacity: 0.3;
-            animation: drift 20s linear infinite;
+            background: radial-gradient(circle at center, #1a060d 0%, #050103 100%);
         }
 
-        @keyframes drift {
-            from { transform: translateY(110vh) rotate(0deg) translateZ(-300px); }
-            to { transform: translateY(-20vh) rotate(360deg) translateZ(100px); }
-        }
-
-        /* --- THE 3D GLASS MONOLITH --- */
-        .prism-card {
+        /* --- THE LIQUID CRYSTAL MONOLITH --- */
+        .sanctuary {
             position: absolute;
             width: 92vw;
-            max-width: 450px;
+            max-width: 440px;
             aspect-ratio: 9/16;
-            background: var(--glass);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(35px) brightness(0.7);
+            -webkit-backdrop-filter: blur(35px) brightness(0.7);
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
             border-radius: 60px;
             display: none;
             flex-direction: column;
@@ -77,115 +54,129 @@
             align-items: center;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            box-shadow: 0 40px 120px rgba(0,0,0,0.9);
+            /* Ultra-smooth liquid transition */
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             transform-style: preserve-3d;
-            transition: transform 0.15s ease-out; /* Liquid Response */
         }
 
-        .prism-card.active { display: flex; animation: soulReveal 2.5s ease-out forwards; }
+        .sanctuary.active { display: flex; animation: soulReveal 2.8s ease-out forwards; }
 
         @keyframes soulReveal {
-            from { opacity: 0; transform: scale(0.9) translateZ(-600px); filter: blur(20px); }
+            from { opacity: 0; transform: scale(0.9) translateZ(-200px); filter: blur(20px); }
             to { opacity: 1; transform: scale(1) translateZ(0); filter: blur(0); }
         }
-
-        /* Physical 3D Depth Layers */
-        .layer-mid { transform: translateZ(50px); transition: 0.3s ease; }
-        .layer-high { transform: translateZ(110px); text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
 
         h1 {
             font-family: 'Great Vibes', cursive;
             font-size: clamp(3.5rem, 15vw, 5.5rem);
-            color: var(--rose);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 20px rgba(229, 179, 163, 0.4));
+            color: var(--rose-gold);
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 20px var(--soft-glow));
         }
 
-        .label {
+        .whisper {
             font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: rgba(255,255,255,0.4);
-            letter-spacing: 7px;
+            letter-spacing: 6px;
             text-transform: uppercase;
             margin-bottom: 35px;
         }
 
-        /* --- THE CINEMATIC PHOTO PORTAL --- */
+        /* --- THE INTIMATE PORTAL --- */
         .portal {
             width: 100%;
             aspect-ratio: 4/5;
-            border-radius: 45px;
+            border-radius: 40px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 20px 0;
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            margin: 25px 0;
             position: relative;
-            transform: translateZ(70px);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+            transform: translateZ(50px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
         }
 
         .slide {
             position: absolute;
             inset: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0;
-            transition: opacity 2s ease;
-            filter: brightness(0.85) contrast(1.1);
+            transition: opacity 2.5s ease-in-out;
+            filter: saturate(0.8) brightness(0.85);
         }
 
         .slide.active { opacity: 1; animation: deepBreathe 15s infinite alternate ease-in-out; }
 
         @keyframes deepBreathe {
-            from { transform: scale(1); }
-            to { transform: scale(1.2) rotate(2deg); }
+            from { transform: scale(1.02); }
+            to { transform: scale(1.15) rotate(1.5deg); }
         }
 
-        /* --- SEDUCTIVE ACTION BUTTONS --- */
+        /* --- SEDUCTIVE ACTION --- */
         .btn-touch {
-            background: rgba(255, 255, 255, 0.05);
-            border: 0.5px solid var(--rose);
-            padding: 20px 50px;
+            background: none;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            padding: 18px 50px;
             color: #fff;
             font-family: 'Cinzel', serif;
             letter-spacing: 5px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             border-radius: 100px;
             margin-top: 30px;
             cursor: pointer;
-            transition: 0.5s;
-            transform: translateZ(60px);
+            transition: 0.6s;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-touch:hover {
-            background: var(--rose);
-            box-shadow: 0 0 60px var(--rose);
-            transform: translateZ(90px) scale(1.08);
+            border-color: var(--rose-gold);
+            background: rgba(229, 179, 163, 0.05);
+            box-shadow: 0 0 50px var(--soft-glow);
+            transform: translateZ(30px);
+        }
+
+        /* Ethereal Petals */
+        .petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10;
+            color: var(--rose-gold);
+            font-size: 14px;
+            opacity: 0.4;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-10vh) rotate(0deg); }
+            to { transform: translateY(110vh) rotate(720deg); }
         }
     </style>
 </head>
 <body>
 
-    <div id="dynamic-bg"></div>
-    <div id="float-container"></div>
+    <div id="nebula"></div>
 
     <audio id="music" loop>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="intro" class="prism-card active">
-        <div class="label layer-mid">A Soul Recognized</div>
-        <h1 class="layer-high">Taniya</h1>
-        <p class="layer-mid" style="font-weight: 100; letter-spacing: 2px; opacity: 0.7;">From the moment our paths crossed... to the forever of us.</p>
-        <button class="btn-touch" onclick="navigate('journey')">Our Secrets</button>
+    <div id="intro" class="sanctuary active">
+        <div class="whisper">A Destined Union</div>
+        <h1>Taniya</h1>
+        <p style="font-weight: 100; font-size: 1rem; letter-spacing: 2px; opacity: 0.8;">From the moment our souls recognized each other... to the forever we are building.</p>
+        <button class="btn-touch" onclick="unveil('journey')">Our Secrets</button>
     </div>
 
-    <div id="journey" class="prism-card">
-        <div class="label layer-mid">Timeline: 2025</div>
-        <h1 class="layer-high">Our Story</h1>
-        <p class="layer-mid">14 September • The Night of the Vow</p>
-        <p class="layer-mid">13 October • The Reunion of Hearts</p>
-        <button class="btn-touch" onclick="navigate('gallery')">Archives</button>
+    <div id="journey" class="sanctuary">
+        <div class="whisper">Moments in Eternity</div>
+        <h1>Our Vows</h1>
+        <p>14 September • The Night of the Promise</p>
+        <p>13 October • The Reunion of Hearts</p>
+        <button class="btn-touch" onclick="unveil('gallery')">Trace My Soul</button>
     </div>
 
-    <div id="gallery" class="prism-card">
+    <div id="gallery" class="sanctuary">
         <div class="portal">
             <img class="slide active" src="photo1.jpg">
             <img class="slide" src="photo2.jpg">
@@ -194,73 +185,63 @@
             <img class="slide" src="photo5.jpg">
             <img class="slide" src="photo6.jpg">
         </div>
-        <button class="btn-touch" onclick="navigate('proposal')">Ascend</button>
+        <button class="btn-touch" onclick="unveil('proposal')">My Seduction</button>
     </div>
 
-    <div id="proposal" class="prism-card">
-        <div class="label layer-mid">Destiny Choice</div>
-        <h1 class="layer-high" style="font-size: 3rem;">Will You Be Mine?</h1>
+    <div id="proposal" class="sanctuary">
+        <div class="whisper">One Prayer. One Answer.</div>
+        <h1 style="font-size: 3.2rem;">Will You Be Mine Forever?</h1>
         <div style="display: flex; flex-direction: column; gap: 15px; width: 100%;">
-            <button class="btn-touch" id="yesBtn">Always Yours</button>
-            <button class="btn-touch" id="noBtn" style="opacity: 0.15; border-color: #444;">No</button>
+            <button class="btn-touch" id="yesBtn" style="border-color: var(--rose-gold);">Always Yours</button>
+            <button class="btn-touch" id="noBtn" style="opacity: 0.15; border-color: #333;">Never</button>
         </div>
     </div>
 
-    <div id="final" class="prism-card">
-        <h1 class="layer-high">Infinity.</h1>
-        <p id="typewriter" class="layer-mid" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2;"></p>
-        <div class="label layer-mid" style="margin-top: 30px;">I am yours, entirely.</div>
+    <div id="final" class="sanctuary">
+        <h1>Infinity.</h1>
+        <p id="typewriter" style="font-style: italic; font-weight: 200; font-size: 1.15rem; line-height: 2; color: var(--rose-gold);"></p>
+        <div class="whisper" style="margin-top: 35px;">I am yours, entirely.</div>
     </div>
 
     <script>
-        const photos = ['photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg', 'photo5.jpg', 'photo6.jpg'];
-        const bg = document.getElementById('dynamic-bg');
-        const container = document.getElementById('float-container');
-
-        bg.style.backgroundImage = `url(${photos[0]})`;
-
-        // Create Floating Memories
-        function createFloats() {
-            for(let i=0; i<10; i++) {
-                let f = document.createElement('div');
-                f.className = 'photo-float';
-                f.style.backgroundImage = `url(${photos[Math.floor(Math.random()*6)]})`;
-                f.style.left = Math.random() * 100 + 'vw';
-                f.style.animationDelay = Math.random() * 10 + 's';
-                container.appendChild(f);
-            }
-        }
-        createFloats();
-
-        function navigate(id) {
-            document.querySelectorAll('.prism-card').forEach(c => c.classList.remove('active'));
+        function unveil(id) {
+            document.querySelectorAll('.sanctuary').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            
-            const index = ['intro', 'journey', 'gallery', 'proposal', 'final'].indexOf(id);
-            if(index >= 0) bg.style.backgroundImage = `url(${photos[index % photos.length]})`;
-            
             if(id === 'journey') document.getElementById('music').play().catch(()=>{});
             if(id === 'final') type();
         }
 
-        // --- LIQUID TILT PHYSICS ---
+        // --- STABILIZED LIQUID TILT ---
         const handleInteraction = (e) => {
-            const card = document.querySelector('.prism-card.active');
-            if(card) {
-                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 70;
-                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 70;
-                card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
+            const active = document.querySelector('.sanctuary.active');
+            if(active) {
+                let x = (window.innerWidth / 2 - (e.touches ? e.touches[0].clientX : e.clientX)) / 75;
+                let y = (window.innerHeight / 2 - (e.touches ? e.touches[0].clientY : e.clientY)) / 75;
+                active.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
             }
         };
         window.addEventListener('mousemove', handleInteraction);
         window.addEventListener('touchmove', handleInteraction);
 
         function type() {
-            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, my soul is bound to yours. I love you, forever.";
+            const msg = "Taniya Elsa John... you are the dream I never want to wake up from. From our first meeting to the last breath I take, my soul is bound to yours. Every heartbeat I have is a whisper of your name.";
             let i = 0; const el = document.getElementById('typewriter');
             const itv = setInterval(() => { el.innerHTML += msg[i]; i++; if(i === msg.length) clearInterval(itv); }, 65);
         }
 
+        // Falling Petals
+        setInterval(() => {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.innerHTML = '🌸';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            p.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 10000);
+        }, 800);
+
+        // Impossible No Button
         const no = document.getElementById('noBtn');
         const jump = () => {
             no.style.position = 'fixed';
@@ -269,17 +250,17 @@
         };
         no.onmouseover = jump; no.ontouchstart = jump;
 
-        document.getElementById('yesBtn').onclick = () => navigate('final');
+        document.getElementById('yesBtn').onclick = () => unveil('final');
 
+        // Slideshow
         let cur = 0; const slides = document.querySelectorAll('.slide');
         setInterval(() => {
             if(document.getElementById('gallery').classList.contains('active')) {
                 slides[cur].classList.remove('active');
                 cur = (cur + 1) % slides.length;
                 slides[cur].classList.add('active');
-                bg.style.backgroundImage = `url(${photos[cur]})`;
             }
-        }, 4500);
+        }, 5000);
     </script>
 </body>
 </html>
