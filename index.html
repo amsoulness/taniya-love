@@ -184,6 +184,42 @@ background:radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5));
 pointer-events:none;
 }
 
+/* Slideshow */
+
+.slideshow{
+position:relative;
+width:90%;
+max-width:400px;
+height:60vh;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 0 30px rgba(0,0,0,.4);
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transition:opacity 1.5s ease;
+}
+
+.slide.active{
+opacity:1;
+}
+
+
+/* Romantic glow overlay */
+
+.slideshow::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle, transparent 60%, rgba(0,0,0,.4));
+pointer-events:none;
+}
+
   
 </style>
 </head>
@@ -234,15 +270,17 @@ And met again for the first time after committing on
 <!-- GALLERY -->
 <div id="gallery" class="section">
 
-<h1>Our Memories 📸</h1>
+<h1 class="reveal">Our Memories 📸</h1>
 
-<div class="gallery">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo4.jpg">
-<img src="photo5.jpg">
-<img src="photo6.jpg">
+<div class="slideshow">
+
+<img class="slide active" src="photo1.jpg">
+<img class="slide" src="photo2.jpg">
+<img class="slide" src="photo3.jpg">
+<img class="slide" src="photo4.jpg">
+<img class="slide" src="photo5.jpg">
+<img class="slide" src="photo6.jpg">
+
 </div>
 
 <button onclick="showSection('proposal')">Next ➜</button>
@@ -277,6 +315,44 @@ and the love I will choose in every lifetime.
 
 
 <script>
+
+/* Photo Slideshow */
+
+let slideIndex=0;
+
+function startSlideshow(){
+
+const slides=document.querySelectorAll(".slide");
+
+if(slides.length===0) return;
+
+setInterval(()=>{
+
+slides[slideIndex].classList.remove("active");
+
+slideIndex=(slideIndex+1)%slides.length;
+
+slides[slideIndex].classList.add("active");
+
+},3000);
+
+}
+
+
+/* Start slideshow when gallery opens */
+
+const gallerySection=document.getElementById("gallery");
+
+const observer=new MutationObserver(()=>{
+
+if(gallerySection.classList.contains("active")){
+startSlideshow();
+}
+
+});
+
+observer.observe(gallerySection,{attributes:true});
+
 
 /* Section Navigation */
 
@@ -440,4 +516,5 @@ setTimeout(()=>p.remove(),6000);
 
 </body>
 </html>
+
 
